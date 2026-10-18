@@ -485,16 +485,494 @@ body {
     #view-sc .credit strong { color: var(--text); font-weight: 600; }
 
   
+
+/* ===== 数字能量-两极 ===== */
+#view-lj{
+    --bg:#0b0d12;
+    --panel:#151a23;
+    --panel-2:#1a202b;
+    --line:#2b3240;
+    --line-soft:#202632;
+    --text:#ece9e1;
+    --muted:#9aa3b5;
+    --dim:#6f7889;
+    --gold:#d8b25c;
+    --gold-2:#f0d38a;
+    --gold-soft:rgba(216,178,92,.12);
+    --good:#d8b25c;
+    --mid:#9aa3b5;
+    --bad:#ff6b6b;
+    --empty:#7a8291;
+    --mono:"Consolas","Sarasa Mono SC","Noto Sans Mono CJK SC",monospace;
+    --serif:"Noto Serif SC","Songti SC","STSong","SimSun",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC",sans-serif;
+  }
+#view-lj *{box-sizing:border-box}
+#view-lj{
+    margin:0;
+    min-height:100vh;
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.65;
+    background:
+      radial-gradient(1100px 620px at 8% -12%, rgba(216,178,92,.11), transparent 55%),
+      radial-gradient(900px 560px at 100% 0%, rgba(0,176,240,.055), transparent 58%),
+      linear-gradient(180deg,#0b0d12 0%,#090b0f 100%);
+  }
+#view-lj::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    background-image:
+      linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+    background-size:48px 48px;
+    -webkit-mask-image:radial-gradient(circle at 50% 0%, #000 0%, transparent 72%);
+    mask-image:radial-gradient(circle at 50% 0%, #000 0%, transparent 72%);
+  }
+#view-lj ::selection{background:rgba(216,178,92,.28)}
+#view-lj .app{position:relative;z-index:1;max-width:1120px;margin:0 auto;padding:38px 22px 64px}
+#view-lj .hero{display:flex;flex-wrap:wrap;justify-content:space-between;gap:28px;align-items:flex-start;padding-bottom:24px;border-bottom:1px solid var(--line)}
+#view-lj .hero > div:first-child{flex:1 1 380px;min-width:0}
+#view-lj .eyebrow{font-size:11.5px;letter-spacing:.18em;color:var(--gold);text-transform:uppercase}
+#view-lj h1{
+    font-family:var(--serif);
+    font-size:clamp(34px,5.2vw,56px);
+    font-weight:600;
+    letter-spacing:.06em;
+    line-height:1.08;
+    margin:10px 0 10px;
+  }
+#view-lj h1 .dot{color:var(--gold);padding:0 .08em}
+#view-lj .hero p{max-width:680px;color:var(--muted);margin:0;font-size:14.5px}
+#view-lj .hero-mark{
+    flex:0 0 auto;
+    width:82px;height:82px;
+    display:grid;place-items:center;
+    border:1px solid rgba(216,178,92,.35);
+    border-radius:50%;
+    color:var(--gold);
+    font-size:38px;
+    background:radial-gradient(circle, rgba(216,178,92,.12), transparent 68%);
+    box-shadow:0 0 40px rgba(216,178,92,.08) inset;
+    user-select:none;
+  }
+#view-lj .legend-row{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:18px}
+#view-lj .legend-item{display:inline-flex;align-items:center;gap:7px;color:var(--muted);font-size:12px;white-space:nowrap}
+#view-lj .legend-dot{width:8px;height:8px;border-radius:50%;background:var(--c);box-shadow:0 0 10px var(--c)}
+#view-lj .tabs{
+    position:sticky;top:0;z-index:20;
+    display:flex;gap:4px;margin:20px 0 20px;
+    padding:6px 0;
+    background:rgba(11,13,18,.82);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+    overflow-x:auto;
+  }
+#view-lj .tab{
+    appearance:none;border:0;background:transparent;color:var(--muted);
+    font-family:var(--sans);font-size:14px;font-weight:600;
+    padding:10px 16px;border-radius:8px;cursor:pointer;white-space:nowrap;
+    transition:color .18s,background .18s;
+  }
+#view-lj .tab:hover{color:var(--text);background:rgba(255,255,255,.035)}
+#view-lj .tab.active{color:var(--gold);background:var(--gold-soft)}
+#view-lj .panel{
+    background:linear-gradient(180deg,rgba(255,255,255,.028),rgba(255,255,255,.008));
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:26px;
+    box-shadow:0 24px 70px rgba(0,0,0,.24);
+  }
+#view-lj .tab-panel{display:none}
+#view-lj .tab-panel.active{display:block;animation:lj-fade .22s ease}
+
+  @keyframes lj-fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+#view-lj .panel-head h2{font-family:var(--serif);font-size:min(26px,6vw);font-weight:600;letter-spacing:.04em;margin:0}
+#view-lj .panel-head p{color:var(--muted);font-size:13.5px;margin:5px 0 22px}
+#view-lj .lookup-form{display:flex;flex-direction:column;gap:13px}
+#view-lj .input-wrap{display:flex;gap:10px}
+#view-lj input,#view-lj select{
+    width:100%;
+    background:#0f1218;
+    color:var(--text);
+    border:1px solid var(--line);
+    border-radius:11px;
+    padding:13px 14px;
+    font-size:16px;
+    font-family:var(--sans);
+    outline:none;
+    transition:border-color .18s,box-shadow .18s;
+  }
+#view-lj input::placeholder{color:#596273}
+#view-lj input:focus,#view-lj select:focus{border-color:rgba(216,178,92,.75);box-shadow:0 0 0 3px rgba(216,178,92,.10)}
+#view-lj select{cursor:pointer}
+#view-lj select option{background:#11151d;color:var(--text)}
+#view-lj .btn{
+    appearance:none;border:1px solid var(--line);background:rgba(255,255,255,.03);
+    color:var(--text);font-family:var(--sans);font-size:14px;font-weight:600;
+    padding:12px 18px;border-radius:11px;cursor:pointer;white-space:nowrap;
+    transition:transform .16s,border-color .16s,background .16s;
+  }
+#view-lj .btn:hover{border-color:rgba(216,178,92,.55);background:rgba(216,178,92,.08)}
+#view-lj .btn:active{transform:translateY(1px)}
+#view-lj .btn.primary{
+    border:0;color:#171207;
+    background:linear-gradient(135deg,var(--gold-2),var(--gold));
+    box-shadow:0 10px 28px rgba(216,178,92,.16);
+  }
+#view-lj .btn.primary:hover{filter:brightness(1.05);background:linear-gradient(135deg,#f6de9d,#dfbb67)}
+#view-lj .btn.ghost{background:transparent}
+#view-lj .btn.small{padding:7px 11px;border-radius:8px;font-size:12.5px}
+#view-lj .example-chips{display:flex;flex-wrap:wrap;align-items:center;gap:7px;color:var(--dim);font-size:12px}
+#view-lj .chip{
+    appearance:none;border:1px solid var(--line);background:rgba(255,255,255,.02);
+    color:var(--muted);font-family:var(--mono);font-size:12.5px;
+    padding:5px 10px;border-radius:999px;cursor:pointer;
+    transition:color .16s,border-color .16s;
+  }
+#view-lj .chip:hover{color:var(--gold);border-color:rgba(216,178,92,.55)}
+#view-lj .result-area{margin-top:22px}
+#view-lj .empty-state{
+    border:1px dashed var(--line);
+    border-radius:14px;
+    padding:34px 22px;
+    text-align:center;
+    color:var(--dim);
+    font-size:13.5px;
+  }
+#view-lj .error-state{
+    border:1px solid rgba(255,107,107,.35);
+    background:rgba(255,107,107,.06);
+    color:#ffb3b3;
+    border-radius:14px;
+    padding:18px 20px;
+    font-size:14px;
+  }
+#view-lj .result-hero{
+    display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+    padding:22px;
+    border:1px solid var(--line);
+    border-radius:16px;
+    background:
+      radial-gradient(520px 200px at 10% 0%, rgba(216,178,92,.10), transparent 60%),
+      rgba(255,255,255,.018);
+  }
+#view-lj .hex-code-big{
+    font-family:var(--serif);
+    font-size:clamp(44px,7vw,64px);
+    line-height:1;
+    color:var(--gold-2);
+    letter-spacing:.02em;
+    min-width:1.9em;
+    text-align:center;
+  }
+#view-lj .hex-title{flex:1 1 220px;min-width:180px}
+#view-lj .hex-title h3{
+    margin:0;
+    font-family:var(--serif);
+    font-size:30px;
+    font-weight:600;
+    letter-spacing:.08em;
+    line-height:1.2;
+  }
+#view-lj .hex-title h3 span{
+    font-family:var(--sans);
+    color:var(--muted);
+    font-size:14px;
+    font-weight:400;
+    letter-spacing:.02em;
+    margin-left:10px;
+  }
+#view-lj .hex-title p{margin:6px 0 0;color:var(--muted);font-size:13px}
+#view-lj .level-badge{
+    display:inline-flex;align-items:center;gap:7px;
+    padding:6px 12px;
+    border:1px solid var(--c);
+    border-radius:999px;
+    color:var(--c);
+    background:rgba(255,255,255,.025);
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:.06em;
+    white-space:nowrap;
+  }
+#view-lj .level-badge::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--c);box-shadow:0 0 10px var(--c)}
+#view-lj .meta-grid{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:10px;
+    margin-top:14px;
+  }
+#view-lj .meta-item{
+    border:1px solid var(--line-soft);
+    border-radius:12px;
+    background:rgba(255,255,255,.012);
+    padding:11px 13px;
+  }
+#view-lj .meta-item label{display:block;color:var(--dim);font-size:11px;letter-spacing:.12em;margin-bottom:3px}
+#view-lj .meta-item strong{font-size:14px;font-weight:600;color:var(--text)}
+#view-lj .meta-item strong em{font-style:normal;color:var(--muted);font-weight:400;font-size:12px}
+#view-lj .subsection{margin-top:20px;border-top:1px solid var(--line-soft);padding-top:18px}
+#view-lj .subhead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+#view-lj .subhead h4{margin:0;font-family:var(--serif);font-size:18px;font-weight:600;letter-spacing:.05em}
+#view-lj .subhead .muted{color:var(--muted);font-size:12.5px}
+#view-lj .calc-box{
+    border:1px solid var(--line-soft);
+    border-radius:13px;
+    background:rgba(0,0,0,.16);
+    padding:14px 16px;
+    font-family:var(--mono);
+    font-size:13px;
+    color:#cfc9bc;
+    display:flex;flex-direction:column;gap:8px;
+  }
+#view-lj .calc-line{display:flex;gap:10px;flex-wrap:wrap;align-items:baseline}
+#view-lj .calc-line .k{color:var(--dim);min-width:54px}
+#view-lj .calc-line .v{color:var(--text)}
+#view-lj .calc-line .tri{color:var(--gold-2)}
+#view-lj .note-line{color:var(--muted);font-size:12.5px;margin-top:8px}
+#view-lj .warn-box{
+    margin-top:12px;
+    border:1px solid rgba(255,183,77,.28);
+    background:rgba(255,183,77,.055);
+    border-radius:12px;
+    padding:11px 14px;
+    color:#e7c58d;
+    font-size:12.8px;
+    display:flex;flex-direction:column;gap:4px;
+  }
+#view-lj .warn-box.danger{border-color:rgba(255,107,107,.38);background:rgba(255,107,107,.065);color:#ffb3b3}
+#view-lj .star-summary{display:flex;flex-wrap:wrap;gap:7px;margin:8px 0 12px}
+#view-lj .stat-pill{
+    display:inline-flex;align-items:center;gap:6px;
+    border:1px solid var(--line-soft);border-radius:999px;
+    padding:4px 10px;color:var(--muted);font-size:12px;background:rgba(255,255,255,.015);
+  }
+#view-lj .stat-pill b{color:var(--text);font-weight:600}
+#view-lj .pair-row{
+    display:grid;
+    grid-template-columns:44px 72px 78px 1fr;
+    gap:8px 12px;
+    align-items:center;
+    padding:10px 2px;
+    border-bottom:1px solid rgba(255,255,255,.045);
+    font-size:13px;
+  }
+#view-lj .pair-row:last-child{border-bottom:0}
+#view-lj .pair-code{font-family:var(--mono);font-size:15px;color:var(--text);letter-spacing:.04em}
+#view-lj .star-chip{
+    display:inline-flex;align-items:center;justify-content:center;
+    padding:3px 9px;border-radius:999px;font-size:12px;font-weight:700;
+    border:1px solid currentColor;white-space:nowrap;
+  }
+#view-lj .star-chip.good{color:var(--good);background:rgba(216,178,92,.08)}
+#view-lj .star-chip.mid{color:var(--mid);background:rgba(154,163,181,.06)}
+#view-lj .star-chip.bad{color:var(--bad);background:rgba(255,107,107,.06)}
+#view-lj .star-chip.empty{color:var(--empty);background:rgba(122,130,145,.06)}
+#view-lj .star-chip.neutral{color:var(--muted);background:rgba(255,255,255,.03)}
+#view-lj .pair-meta{color:var(--dim);font-size:12px}
+#view-lj .pair-desc{color:var(--muted);font-size:12.3px;line-height:1.5}
+#view-lj .group-tag{
+    display:inline-block;margin-left:6px;padding:1px 6px;border-radius:4px;
+    font-size:10.5px;color:var(--dim);border:1px solid var(--line-soft);
+  }
+#view-lj .pair-chips{display:flex;flex-wrap:wrap;gap:7px;margin:8px 0 14px}
+#view-lj .pair-chip{
+    display:inline-flex;align-items:center;gap:7px;
+    padding:5px 9px;border:1px solid var(--line-soft);border-radius:8px;
+    background:rgba(255,255,255,.015);font-family:var(--mono);font-size:12.5px;
+  }
+#view-lj .pair-chip .star-chip{padding:1px 7px;font-size:11px}
+#view-lj .result-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+#view-lj .controls{
+    display:grid;
+    grid-template-columns:minmax(220px,1.4fr) minmax(150px,.8fr) minmax(170px,1fr) auto;
+    gap:12px;
+    align-items:end;
+  }
+#view-lj .field{display:flex;flex-direction:column;gap:6px}
+#view-lj .field>span{color:var(--dim);font-size:11px;letter-spacing:.12em}
+#view-lj .switch{
+    display:flex;align-items:center;gap:9px;
+    color:var(--muted);font-size:13px;user-select:none;cursor:pointer;
+    padding:11px 2px;white-space:nowrap;
+  }
+#view-lj .switch input{position:absolute;opacity:0;width:1px;height:1px}
+#view-lj .switch .knob{
+    width:36px;height:20px;border-radius:999px;background:#232a36;border:1px solid var(--line);
+    position:relative;transition:background .18s,border-color .18s;flex:0 0 auto;
+  }
+#view-lj .switch .knob::after{
+    content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;
+    background:#808a9b;transition:transform .18s,background .18s;
+  }
+#view-lj .switch input:checked + .knob{background:rgba(216,178,92,.25);border-color:rgba(216,178,92,.55)}
+#view-lj .switch input:checked + .knob::after{transform:translateX(16px);background:var(--gold-2)}
+#view-lj .generate-cta{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
+#view-lj .target-card{
+    display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+    padding:16px 18px;border:1px solid var(--line);border-radius:14px;
+    background:rgba(255,255,255,.018);margin-bottom:16px;
+  }
+#view-lj .target-code{font-family:var(--serif);font-size:38px;color:var(--gold-2);line-height:1;min-width:1.7em;text-align:center}
+#view-lj .target-info{flex:1 1 220px}
+#view-lj .target-info h3{margin:0;font-family:var(--serif);font-size:23px;font-weight:600;letter-spacing:.05em}
+#view-lj .target-info h3 span{font-family:var(--sans);font-size:12.5px;color:var(--muted);font-weight:400;margin-left:8px}
+#view-lj .target-info p{margin:4px 0 0;color:var(--muted);font-size:12.5px}
+#view-lj .rule-note{color:var(--dim);font-size:12.3px;margin:0 0 14px}
+#view-lj .best-card{
+    border:1px solid rgba(216,178,92,.32);
+    border-radius:16px;
+    padding:18px;
+    background:
+      radial-gradient(460px 200px at 0% 0%, rgba(216,178,92,.12), transparent 62%),
+      rgba(255,255,255,.018);
+  }
+#view-lj .best-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+#view-lj .best-label{color:var(--gold);font-size:10.5px;letter-spacing:.18em;white-space:nowrap}
+#view-lj .best-number{font-family:var(--mono);font-size:clamp(30px,5vw,42px);letter-spacing:.08em;color:var(--gold-2);line-height:1.1}
+#view-lj .best-number .suffix{color:var(--text)}
+#view-lj .best-stars{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+#view-lj .best-actions{display:flex;gap:8px;align-items:center;margin-left:auto;flex-wrap:wrap}
+#view-lj .rating{
+    display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;
+    border:1px solid var(--line);color:var(--muted);font-size:11.5px;white-space:nowrap;
+  }
+#view-lj .rating .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+#view-lj .result-cards{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+    margin-top:14px;
+  }
+#view-lj .result-card{
+    border:1px solid var(--line-soft);
+    border-radius:12px;
+    padding:11px 13px;
+    background:rgba(255,255,255,.012);
+    display:flex;align-items:center;gap:12px;justify-content:space-between;
+    transition:border-color .16s,background .16s;
+  }
+#view-lj .result-card:hover{border-color:rgba(216,178,92,.28);background:rgba(216,178,92,.035)}
+#view-lj .rc-left{min-width:0}
+#view-lj .rc-num{font-family:var(--mono);font-size:17px;letter-spacing:.06em;color:var(--text)}
+#view-lj .rc-stars{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
+#view-lj .rc-stars .star-chip{padding:1px 6px;font-size:10.5px}
+#view-lj .rc-right{display:flex;align-items:center;gap:6px;flex:0 0 auto}
+#view-lj .copy-btn{
+    appearance:none;border:1px solid var(--line-soft);border-radius:7px;
+    background:transparent;color:var(--dim);font-size:11px;padding:4px 7px;cursor:pointer;
+    font-family:var(--sans);transition:color .16s,border-color .16s;
+  }
+#view-lj .copy-btn:hover{color:var(--gold);border-color:rgba(216,178,92,.45)}
+#view-lj .grid-wrap{overflow-x:auto;padding-bottom:6px}
+#view-lj .hex-grid{
+    display:grid;
+    grid-template-columns:74px repeat(8,minmax(72px,1fr));
+    gap:5px;
+    min-width:760px;
+  }
+#view-lj .grid-corner{
+    display:flex;align-items:center;justify-content:center;
+    color:var(--dim);font-size:10px;letter-spacing:.05em;text-align:center;
+  }
+#view-lj .grid-head{
+    display:flex;align-items:center;justify-content:center;
+    color:var(--muted);font-size:11.5px;padding:7px 4px;
+    border-bottom:1px solid var(--line-soft);
+    white-space:nowrap;
+  }
+#view-lj .row-head{justify-content:flex-start;padding-left:10px;border-bottom:0;border-right:1px solid var(--line-soft)}
+#view-lj .hex-cell{
+    appearance:none;border:1px solid var(--line-soft);border-radius:9px;
+    background:rgba(255,255,255,.014);
+    color:var(--c);
+    display:flex;align-items:baseline;justify-content:center;gap:5px;
+    padding:9px 5px;min-height:42px;cursor:pointer;
+    font-family:var(--sans);
+    transition:border-color .16s,background .16s,transform .16s;
+  }
+#view-lj .hex-cell:hover{border-color:var(--gold);background:var(--gold-soft);transform:translateY(-1px)}
+#view-lj .hex-cell .c{font-family:var(--mono);font-size:11px;opacity:.78}
+#view-lj .hex-cell .n{font-family:var(--serif);font-size:16px;font-weight:600;letter-spacing:.03em}
+#view-lj .grid-note{color:var(--dim);font-size:11.5px;margin-top:10px}
+#view-lj .rules{color:#cbc6ba;font-size:14px}
+#view-lj .rules h3{font-family:var(--serif);color:var(--text);font-size:19px;margin:24px 0 8px;font-weight:600;letter-spacing:.04em}
+#view-lj .rules h3:first-child{margin-top:0}
+#view-lj .rules p{margin:6px 0;color:var(--muted)}
+#view-lj .rules ul{margin:6px 0 6px 20px;padding:0}
+#view-lj .rules li{margin:3px 0}
+#view-lj .rules code{
+    font-family:var(--mono);font-size:12px;color:var(--gold-2);
+    background:rgba(216,178,92,.075);border:1px solid rgba(216,178,92,.14);
+    padding:1px 5px;border-radius:4px;
+  }
+#view-lj .rules .rule-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 24px}
+#view-lj .rules .rule-card{border:1px solid var(--line-soft);border-radius:12px;padding:14px 16px;background:rgba(255,255,255,.012)}
+#view-lj .rules .rule-card strong{color:var(--text)}
+#view-lj .disclaimer{margin-top:22px;padding-top:16px;border-top:1px solid var(--line-soft);color:var(--dim);font-size:12px}
+#view-lj footer{color:var(--dim);font-size:11.5px;text-align:center;margin-top:28px;letter-spacing:.03em}
+#view-lj .js-error{
+    position:fixed;left:12px;right:12px;bottom:12px;z-index:99;
+    padding:12px 14px;border-radius:10px;
+    background:#3a1418;border:1px solid #ff6b6b;color:#ffd0d0;
+    font-family:var(--mono);font-size:11.5px;white-space:pre-wrap;
+  }
+#view-lj details.more{margin-top:12px}
+#view-lj details.more summary{cursor:pointer;color:var(--dim);font-size:12px;user-select:none}
+#view-lj details.more summary:hover{color:var(--gold)}
+
+  @media (max-width:860px){#view-lj .controls{grid-template-columns:1fr 1fr}
+#view-lj .switch{grid-column:span 2}
+#view-lj .meta-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+#view-lj .result-cards{grid-template-columns:1fr}
+#view-lj .rules .rule-grid{grid-template-columns:1fr}
+
+  }
+
+  @media (max-width:600px){#view-lj .app{padding:24px 13px 48px}
+#view-lj .hero{gap:12px}
+#view-lj .hero-mark{width:58px;height:58px;font-size:26px}
+#view-lj .panel{padding:19px 16px;border-radius:15px}
+#view-lj .input-wrap{flex-direction:column}
+#view-lj .input-wrap .btn{width:100%}
+#view-lj .controls{grid-template-columns:1fr}
+#view-lj .switch{grid-column:auto}
+#view-lj .pair-row{grid-template-columns:40px 68px 1fr;gap:6px 10px}
+#view-lj .pair-desc{grid-column:1/-1}
+#view-lj .pair-meta{grid-column:3}
+#view-lj .hex-title h3 span{display:block;margin:3px 0 0}
+#view-lj .result-hero{gap:12px;padding:17px}
+#view-lj .meta-grid{gap:7px}
+#view-lj .best-actions{width:100%;margin-left:0}
+#view-lj .grid-head{font-size:10.5px}
+
+  }
+
+  @media (prefers-reduced-motion:reduce){#view-lj *,#view-lj *::before,#view-lj *::after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+
+  }
+
+
+#view-lj.active{display:block;align-items:initial;justify-content:initial;min-height:0}
+#view-lj{margin:-24px;}
+#view-lj .lj-back{margin:14px 0 0 22px !important;padding:8px 14px;border:1px solid var(--line);border-radius:10px;cursor:pointer;background:#243041;color:#e8eef4;font-weight:600;font-size:.88rem}
+
   </style>
 </head>
 <body>
   <section id="view-home" class="view active" aria-label="主页">
     <div class="home-card">
       <h1>小工具</h1>
-      <p class="sub">数字起卦 · 八字笔记 · 时差计算</p>
+      <p class="sub">数字起卦 · 八字笔记 · 时差计算 · 数字能量-两极</p>
       <button type="button" class="nav-btn" data-go="qg">数字起卦</button>
       <button type="button" class="nav-btn" data-go="bz">八字笔记生成器</button>
       <button type="button" class="nav-btn" data-go="sc">时差计算</button>
+      <button type="button" class="nav-btn" data-go="lj">数字能量-两极</button>
       <footer class="credit"><div>作者：<strong>宗燡</strong></div></footer>
     </div>
   </section>
@@ -601,6 +1079,155 @@ body {
     <footer class="credit"><div>作者：<strong>宗燡</strong></div></footer>
   </div>
   </section>
+
+<section id="view-lj" class="view" aria-label="数字能量-两极">
+<button type="button" class="back-btn lj-back" data-back="home">← 返回</button>
+<div class="app">
+  <header class="hero">
+    <div>
+      <div class="eyebrow">数字能量 · 六十四卦为主 · 八宅为辅</div>
+      <h1>数字能量<span class="dot">·</span>卦数</h1>
+      <p>输入号码查卦，或选定卦象反推号码。六十四卦取象按笔记规则，八宅数字作为参考层参与分析与排序。</p>
+      <div class="legend-row" id="legend-row"></div>
+    </div>
+    <div class="hero-mark" aria-hidden="true">☯</div>
+  </header>
+
+  <nav class="tabs" id="tabs" aria-label="功能切换">
+    <button class="tab active" data-tab="lookup" type="button">数字查卦</button>
+    <button class="tab" data-tab="generate" type="button">按卦配数</button>
+    <button class="tab" data-tab="grid" type="button">64 卦总表</button>
+    <button class="tab" data-tab="rules" type="button">规则说明</button>
+  </nav>
+
+  <main>
+    <section class="panel tab-panel active" id="panel-lookup">
+      <div class="panel-head">
+        <h2>数字查卦</h2>
+        <p>手机号自动取后四位；车牌、密码、门牌按位数分组。字母会作为自然分隔符。</p>
+      </div>
+      <form class="lookup-form" id="lookup-form">
+        <div class="input-wrap">
+          <input id="number-input" type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="输入数字，如 43、1431、2A333" aria-label="输入数字">
+          <button type="submit" class="btn primary">查卦</button>
+        </div>
+        <div class="example-chips">
+          <span>示例</span>
+          <button type="button" class="chip" data-example="43">43</button>
+          <button type="button" class="chip" data-example="1431">1431</button>
+          <button type="button" class="chip" data-example="2824">2824</button>
+          <button type="button" class="chip" data-example="1992824">1992824</button>
+          <button type="button" class="chip" data-example="2A333">2A333</button>
+          <button type="button" class="chip" data-example="1080">1080</button>
+        </div>
+      </form>
+      <div class="result-area" id="lookup-result">
+        <div class="empty-state">输入一个数字，查看它对应的六十四卦与八宅参考。</div>
+      </div>
+    </section>
+
+    <section class="panel tab-panel" id="panel-generate">
+      <div class="panel-head">
+        <h2>按卦配数</h2>
+        <p>先选目标卦，再选号码位数。所有结果都对应目标卦；八宅数字只影响排序与参考。</p>
+      </div>
+      <div class="controls">
+        <label class="field">
+          <span>目标卦</span>
+          <select id="hex-select"></select>
+        </label>
+        <label class="field">
+          <span>位数与分组</span>
+          <select id="length-select">
+            <option value="2">2 位 · 直读</option>
+            <option value="3">3 位 · 1+2</option>
+            <option value="4" selected>4 位 · 2+2（手机尾号）</option>
+            <option value="5">5 位 · 2+3（车牌）</option>
+            <option value="6">6 位 · 3+3（密码）</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>前缀（可选，仅拼接展示）</span>
+          <input id="prefix-input" type="text" inputmode="numeric" autocomplete="off" spellcheck="false" placeholder="如 1992824">
+        </label>
+        <label class="switch">
+          <input type="checkbox" id="avoid05" checked>
+          <span class="knob" aria-hidden="true"></span>
+          避开 0、5
+        </label>
+      </div>
+      <div class="generate-cta">
+        <button class="btn primary" id="generate-btn" type="button">生成数字</button>
+      </div>
+      <div class="result-area" id="generate-result">
+        <div class="empty-state">选择目标卦，生成对应数字。</div>
+      </div>
+    </section>
+
+    <section class="panel tab-panel" id="panel-grid">
+      <div class="panel-head">
+        <h2>六十四卦总表</h2>
+        <p>横轴为上卦，纵轴为下卦；点击卦格可直接进入按卦配数。</p>
+      </div>
+      <div class="grid-wrap">
+        <div class="hex-grid" id="hex-grid"></div>
+      </div>
+      <div class="grid-note">编码规则：首位上卦、次位下卦。例：43 上震下离，雷火丰。</div>
+    </section>
+
+    <section class="panel tab-panel" id="panel-rules">
+      <div class="panel-head">
+        <h2>规则说明</h2>
+        <p>按《六十四卦吉凶概论》中的配号方法整理。</p>
+      </div>
+      <div class="rules">
+        <div class="rule-grid">
+          <div class="rule-card">
+            <h3>六十四卦编码</h3>
+            <ul>
+              <li>八卦数：乾一、兑二、离三、震四、巽五、坎六、艮七、坤八。</li>
+              <li>每卦用两位数表示：首位为上卦，次位为下卦。</li>
+              <li>超过八就减八；0 按 8（坤）算。</li>
+              <li>字母作自然分割，如 <code>2A333</code> → 上卦 2，下卦 3+3+3=9→1，泽天夬。</li>
+            </ul>
+          </div>
+          <div class="rule-card">
+            <h3>分组方式</h3>
+            <ul>
+              <li>2 位：首位上卦、次位下卦，直读。</li>
+              <li>3 位：前一后二；4 位：前二后二。</li>
+              <li>5 位：前二后三；6 位：3+3。</li>
+              <li>手机号取最后四位；7 位以上笔记未规定，工具按天清地浊取最均衡分法。</li>
+            </ul>
+          </div>
+          <div class="rule-card">
+            <h3>吉凶颜色</h3>
+            <ul>
+              <li>大吉：黄 <code>#ffff00</code>；吉：红 <code>#ff0000</code>。</li>
+              <li>小吉：蓝 <code>#00b0f0</code>；凶：白；大凶：绿 <code>#92d050</code>。</li>
+              <li>颜色顺序：黄 ＞ 红 ＞ 蓝 ＞ 白 ＞ 绿。</li>
+            </ul>
+          </div>
+          <div class="rule-card">
+            <h3>八宅数字</h3>
+            <ul>
+              <li>1349、2678 两组，同组为吉，跨组为凶；0、5 为空。</li>
+              <li>吉星：生气、天医、延年；伏位为中；绝命、五鬼、六煞、祸害为凶。</li>
+              <li>双数组合正反皆成立；手机后四位忌用 0，尤其末位。</li>
+              <li>八宅只作参考，主判断仍看六十四卦。</li>
+            </ul>
+          </div>
+        </div>
+        <h3>生成数字的排序逻辑</h3>
+        <p>目标卦固定后，工具枚举对应位数的数字组合，再用八宅相邻组合评分：生气、天医、延年加分，六煞、祸害、五鬼、绝命减分，0、5 与末位 0 会额外提示或排除。同分时优先天医，其次生气、延年。某些卦在四位下受分组结构限制，八宅层无法全吉，结果会按“吉星优先”排列。</p>
+        <div class="disclaimer">本工具按笔记规则计算，仅供学习、整理与参考，不构成现实决策建议。</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>数字能量 · 卦数 &nbsp;|&nbsp; 六十四卦为主 · 八宅为辅 &nbsp;|&nbsp; v1.0 · 2026-10-18</footer>
+</div>
+</section>
 
   <script>
   (function () {
@@ -1385,6 +2012,753 @@ body {
         }
       });
     })();
+
+</script>
+
+<script>
+
+(function(){
+  'use strict';
+
+  /* ---------------- 数据 ---------------- */
+  const TRI = {
+    1:{name:'乾',nature:'天',el:'金'},
+    2:{name:'兑',nature:'泽',el:'金'},
+    3:{name:'离',nature:'火',el:'火'},
+    4:{name:'震',nature:'雷',el:'木'},
+    5:{name:'巽',nature:'风',el:'木'},
+    6:{name:'坎',nature:'水',el:'水'},
+    7:{name:'艮',nature:'山',el:'土'},
+    8:{name:'坤',nature:'地',el:'土'}
+  };
+
+  // SHORT[upper][lower]，与笔记总表一致（横轴上卦、纵轴下卦）
+  const SHORT = {
+    1:{1:'乾',2:'履',3:'同人',4:'无妄',5:'姤',6:'讼',7:'遁',8:'否'},
+    2:{1:'夬',2:'兑',3:'革',4:'随',5:'大过',6:'困',7:'咸',8:'萃'},
+    3:{1:'大有',2:'睽',3:'离',4:'噬嗑',5:'鼎',6:'未济',7:'旅',8:'晋'},
+    4:{1:'大壮',2:'归妹',3:'丰',4:'震',5:'恒',6:'解',7:'小过',8:'豫'},
+    5:{1:'小畜',2:'中孚',3:'家人',4:'益',5:'巽',6:'涣',7:'渐',8:'观'},
+    6:{1:'需',2:'节',3:'既济',4:'屯',5:'井',6:'坎',7:'蹇',8:'比'},
+    7:{1:'大畜',2:'损',3:'贲',4:'颐',5:'蛊',6:'蒙',7:'艮',8:'剥'},
+    8:{1:'泰',2:'临',3:'明夷',4:'复',5:'升',6:'师',7:'谦',8:'坤'}
+  };
+
+  const LEVEL_GROUPS = {
+    '大吉':['11','13','28','31','35','43','54','63','68','71','81','85','87','88'],
+    '吉':['22','27','38','41','45','48','52','55','74','86'],
+    '小吉':['12','14','23','24','33','37','42','44','46','51','56','57','58','61','62','73','76','77','82','84'],
+    '凶':['17','21','32','34','36','47','53','65','83'],
+    '大凶':['15','16','18','25','26','64','66','67','72','75','78']
+  };
+
+  const LEVEL_META = {
+    '大吉':{color:'#ffff00',rank:5},
+    '吉':{color:'#ff0000',rank:4},
+    '小吉':{color:'#00b0f0',rank:3},
+    '凶':{color:'#ffffff',rank:2},
+    '大凶':{color:'#92d050',rank:1}
+  };
+
+  const PALACE_GROUPS = {
+    '乾金':['11','15','17','18','58','78','38','31'],
+    '兑金':['22','26','28','27','67','87','47','42'],
+    '坎水':['66','62','64','63','23','43','83','86'],
+    '艮土':['77','73','71','72','32','12','52','57'],
+    '坤土':['88','84','82','81','41','21','61','68'],
+    '震木':['44','48','46','45','85','65','25','24'],
+    '巽木':['55','51','53','54','14','34','74','75'],
+    '离火':['33','37','35','36','76','56','16','13']
+  };
+
+  const STAR_DATA = [
+    {name:'生气',gua:'贪狼',el:'木',tone:'吉',nums:['14','67','39','28'],desc:'聪明、单纯，容易升官，交际能力强，人际关系好'},
+    {name:'天医',gua:'巨门',el:'土',tone:'吉',nums:['13','86','49','27'],desc:'人财两旺，聪明大方'},
+    {name:'延年',gua:'武曲',el:'金',tone:'吉',nums:['19','78','34','26'],desc:'人财两旺，精打细算，守财'},
+    {name:'伏位',gua:'左辅右弼',el:'木',tone:'中',nums:['11','22','33','44','66','77','88','99'],desc:'小康、中寿，可以开门但容易生女孩；固执、保守'},
+    {name:'绝命',gua:'破军',el:'金',tone:'凶',nums:['12','37','84','96'],desc:'人丁不旺、伤财、有官非，容易出凶事'},
+    {name:'五鬼',gua:'廉贞',el:'火',tone:'凶',nums:['18','36','24','97'],desc:'血光、火灾、盗贼、口舌是非，伤小口'},
+    {name:'六煞',gua:'文昌',el:'水',tone:'凶',nums:['16','38','47','92'],desc:'艰辛、官非、疾病、伤人、破财、小人、情感'},
+    {name:'祸害',gua:'禄存',el:'土',tone:'凶',nums:['17','32','46','98'],desc:'小人、不顺、伤财、伤人、消耗'}
+  ];
+
+  const LEVEL_OF = {};
+  for (const [level,codes] of Object.entries(LEVEL_GROUPS)) {
+    for (const c of codes) LEVEL_OF[c] = level;
+  }
+  const PALACE_OF = {};
+  for (const [palace,codes] of Object.entries(PALACE_GROUPS)) {
+    for (const c of codes) PALACE_OF[c] = palace;
+  }
+
+  const HEX = {};
+  for (let u=1; u<=8; u++) {
+    for (let l=1; l<=8; l++) {
+      const code = String(u)+String(l);
+      const short = SHORT[u][l];
+      const full = u===l ? `${TRI[u].name}为${TRI[u].nature}` : `${TRI[u].nature}${TRI[l].nature}${short}`;
+      HEX[code] = {
+        code, upper:u, lower:l, short, full,
+        level:LEVEL_OF[code] || '—',
+        palace:PALACE_OF[code] || '—',
+        upperTri:TRI[u], lowerTri:TRI[l]
+      };
+    }
+  }
+  const HEX_LIST = Object.values(HEX).sort((a,b)=>Number(a.code)-Number(b.code));
+
+  const STAR_LOOKUP = {};
+  for (const s of STAR_DATA) {
+    for (const n of s.nums) {
+      STAR_LOOKUP[n] = s;
+      STAR_LOOKUP[n[1]+n[0]] = s;
+    }
+  }
+  const EMPTY_STAR = {name:'空',gua:'—',el:'—',tone:'空',nums:[],desc:'0、5 为空亡'};
+
+  const STAR_SCORE = {'生气':5,'天医':5,'延年':4,'伏位':1,'六煞':-1,'祸害':-2,'五鬼':-3,'绝命':-4,'空':-5,'未分类':0};
+  const SPLITS = {2:[1,1],3:[1,2],4:[2,2],5:[2,3],6:[3,3],7:[3,4],8:[4,4],9:[4,5],10:[5,5],11:[5,6]};
+
+  /* ---------------- 工具函数 ---------------- */
+  const $ = (sel, root=document) => root.querySelector(sel);
+  const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+  const esc = (s) => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+  function reduce8(n){
+    if (n === 0) return 8;
+    const r = n % 8;
+    return r === 0 ? 8 : r;
+  }
+  function digitSum(s){
+    let n = 0;
+    for (const ch of s) if (ch >= '0' && ch <= '9') n += Number(ch);
+    return n;
+  }
+  function groupOf(d){
+    if ('1349'.includes(d)) return 'A';
+    if ('2678'.includes(d)) return 'B';
+    return null;
+  }
+  function sameGroup(a,b){
+    if (a === '0' || a === '5' || b === '0' || b === '5') return false;
+    return groupOf(a) === groupOf(b);
+  }
+
+  function classifyPair(pair){
+    if (pair.includes('0') || pair.includes('5')) {
+      return Object.assign({}, EMPTY_STAR, {pair, sameGroup:false});
+    }
+    const star = STAR_LOOKUP[pair];
+    if (!star) {
+      return {name:'未分类',gua:'—',el:'—',tone:'—',desc:'',pair,sameGroup:sameGroup(pair[0],pair[1])};
+    }
+    return Object.assign({}, star, {pair, sameGroup:sameGroup(pair[0],pair[1])});
+  }
+
+  function pairScore(pairs){
+    return pairs.reduce((sum,p)=>sum + (STAR_SCORE[p.name] || 0),0);
+  }
+
+  function summarizePairs(pairs){
+    let good=0, neutral=0, bad=0, empty=0;
+    for (const p of pairs) {
+      if (['生气','天医','延年'].includes(p.name)) good++;
+      else if (p.name === '伏位') neutral++;
+      else if (p.name === '空') empty++;
+      else if (['绝命','五鬼','六煞','祸害'].includes(p.name)) bad++;
+    }
+    let rating = '—';
+    if (pairs.length) {
+      if (bad === 0 && empty === 0) rating = good > 0 ? '八宅全吉' : '八宅平稳';
+      else if (good > bad) rating = '吉多凶少';
+      else if (good === bad) rating = '吉凶参半';
+      else rating = '凶多吉少';
+    }
+    return {pairs,good,neutral,bad,empty,rating};
+  }
+
+  function analyzeBazhai(digits){
+    const pairs = [];
+    for (let i=0; i<digits.length-1; i++) {
+      pairs.push(classifyPair(digits.slice(i,i+2)));
+    }
+    return summarizePairs(pairs);
+  }
+
+  function splitPairsFor(digits){
+    const len = digits.length;
+    if (len === 2) return [classifyPair(digits)];
+    if (len === 4) return [classifyPair(digits.slice(0,2)), classifyPair(digits.slice(2))];
+    return [];
+  }
+
+  function splitForLength(len){
+    if (SPLITS[len]) return SPLITS[len];
+    const upper = Math.floor(len/2);
+    return [upper, len-upper];
+  }
+
+  function parseNumber(raw){
+    const original = String(raw || '').trim();
+    const cleaned = original
+      .replace(/[\s\-—_·.,，、]/g,'')
+      .toUpperCase();
+    if (!cleaned) throw new Error('请输入数字。');
+    if (!/^[0-9A-Z]+$/.test(cleaned)) throw new Error('只支持数字和英文字母。');
+
+    const hasLetters = /[A-Z]/.test(cleaned);
+    const digitsOnly = cleaned.replace(/[^0-9]/g,'');
+    if (digitsOnly.length < 2) throw new Error('至少需要两位数字，才能组成上下卦。');
+
+    let groups = null;
+    let usedDigits = null;
+    let fullDigits = digitsOnly;
+    let mode = '';
+    let isPhone = false;
+    const notes = [];
+
+    if (hasLetters) {
+      const segments = cleaned.split(/[A-Z]+/).filter(s => s.length > 0);
+      if (segments.length === 2 && segments.every(s => /^[0-9]+$/.test(s))) {
+        groups = segments;
+        usedDigits = segments.join('');
+        mode = '字母自然分隔';
+        notes.push('字母作为分隔符：前段为上卦，后段为下卦。');
+      } else {
+        notes.push('字母无法分成两段，已忽略字母，按纯数字位数分组。');
+      }
+    }
+
+    if (!groups) {
+      if (!hasLetters && digitsOnly.length === 11 && digitsOnly.startsWith('1')) {
+        isPhone = true;
+        usedDigits = digitsOnly.slice(-4);
+        groups = [usedDigits.slice(0,2), usedDigits.slice(2,4)];
+        mode = '手机取后四位';
+        notes.push('手机号只看后四位；前七位不参与六十四卦。');
+      } else {
+        const len = digitsOnly.length;
+        usedDigits = digitsOnly;
+        const sp = splitForLength(len);
+        groups = [digitsOnly.slice(0,sp[0]), digitsOnly.slice(sp[0],sp[0]+sp[1])];
+        mode = `${sp[0]}+${sp[1]} 分组`;
+        if (len >= 7) {
+          notes.push('笔记只规定到 6 位；7 位以上按天清地浊取最均衡分法，仅作参考。');
+        }
+      }
+    }
+
+    if (!groups[0] || !groups[1]) throw new Error('分组后缺少上卦或下卦。');
+
+    const sums = groups.map(digitSum);
+    const upper = reduce8(sums[0]);
+    const lower = reduce8(sums[1]);
+    const code = String(upper)+String(lower);
+    const hex = HEX[code];
+    if (!hex) throw new Error('无法匹配到六十四卦，请检查数字。');
+
+    return {
+      original, cleaned, fullDigits, usedDigits, groups, sums,
+      upper, lower, code, hex, mode, notes, isPhone, hasLetters
+    };
+  }
+
+  function levelBadge(level){
+    const meta = LEVEL_META[level] || {color:'#cfcfcf'};
+    return `<span class="level-badge" style="--c:${meta.color}">${esc(level)}</span>`;
+  }
+
+  function starClass(p){
+    if (p.tone === '吉') return 'good';
+    if (p.tone === '中') return 'mid';
+    if (p.tone === '空') return 'empty';
+    if (p.tone === '凶') return 'bad';
+    return 'neutral';
+  }
+
+  function starChip(p){
+    return `<span class="star-chip ${starClass(p)}" title="${esc(p.desc || '')}">${esc(p.name)}</span>`;
+  }
+
+  function pairStarChip(p){
+    return `<span class="star-chip ${starClass(p)}" title="${esc(p.desc || '')}">${esc(p.pair)} ${esc(p.name)}</span>`;
+  }
+
+  function groupTag(p){
+    if (p.name === '空') return '<span class="group-tag">空亡</span>';
+    return `<span class="group-tag">${p.sameGroup ? '同组' : '跨组'}</span>`;
+  }
+
+  function pairRows(pairs){
+    if (!pairs.length) return '<div class="note-line">没有可分析的双数组合。</div>';
+    return pairs.map((p,i)=>`
+      <div class="pair-row">
+        <span class="pair-code">${esc(p.pair)}</span>
+        <span>${starChip(p)}</span>
+        <span class="pair-meta">${esc(p.el)} · ${esc(p.gua)}${groupTag(p)}</span>
+        <span class="pair-desc">${esc(p.desc || '')}</span>
+      </div>
+    `).join('');
+  }
+
+  function pairChips(pairs){
+    return `<div class="pair-chips">${pairs.map(p=>`<span class="pair-chip">${esc(p.pair)} ${starChip(p)}</span>`).join('')}</div>`;
+  }
+
+  function ratingPill(rating){
+    return `<span class="rating"><span class="dot"></span>${esc(rating)}</span>`;
+  }
+
+  function calcHTML(parsed){
+    const rows = parsed.groups.map((g,i)=>{
+      const sum = parsed.sums[i];
+      const red = reduce8(sum);
+      const triText = sum === red
+        ? `${TRI[red].name} · ${TRI[red].nature}`
+        : `${red} ${TRI[red].name} · ${TRI[red].nature}`;
+      const label = i === 0 ? '上卦' : '下卦';
+      return `<div class="calc-line"><span class="k">${label}</span><span class="v">${esc(g.split('').join(' + '))} = ${sum}</span><span class="tri">→ ${triText}</span></div>`;
+    }).join('');
+    return `<div class="calc-box">${rows}</div>`;
+  }
+
+  function warningsFor(parsed, adj){
+    const warnings = [];
+    for (const n of parsed.notes) warnings.push({type:'info', text:n});
+    if (parsed.usedDigits.includes('0') || parsed.usedDigits.includes('5')) {
+      warnings.push({type:'warn', text:'取用数字含 0 或 5：八宅层视为空亡。'});
+    }
+    if (parsed.usedDigits.endsWith('0')) {
+      warnings.push({type:'danger', text:'末位为 0：八宅称“竹篮打水一场空”。'});
+    }
+    if (adj.bad > 0 && adj.empty === 0) {
+      warnings.push({type:'info', text:'八宅为辅：相邻组合中仍有凶星，主判断仍以六十四卦为准。'});
+    }
+    return warnings;
+  }
+
+  function warningHTML(warnings){
+    if (!warnings.length) return '';
+    return `<div class="warn-box ${warnings.some(w=>w.type==='danger')?'danger':''}">
+      ${warnings.map(w=>`<div>${w.type==='danger'?'⚠ ':''}${esc(w.text)}</div>`).join('')}
+    </div>`;
+  }
+
+  function renderLookup(raw){
+    const box = $('#lookup-result');
+    let parsed;
+    try {
+      parsed = parseNumber(raw);
+    } catch (err) {
+      box.innerHTML = `<div class="error-state">${esc(err.message)}</div>`;
+      return;
+    }
+    const hex = parsed.hex;
+    const adj = analyzeBazhai(parsed.usedDigits);
+    const split = splitPairsFor(parsed.usedDigits);
+    const fullAdj = (parsed.fullDigits !== parsed.usedDigits && parsed.fullDigits.length >= 2)
+      ? analyzeBazhai(parsed.fullDigits) : null;
+    const warnings = warningsFor(parsed, adj);
+    const usedLabel = parsed.isPhone ? `取后四位 ${parsed.usedDigits}` : `取用 ${parsed.usedDigits}`;
+
+    box.innerHTML = `
+      <div class="result-hero">
+        <div class="hex-code-big">${esc(hex.code)}</div>
+        <div class="hex-title">
+          <h3>${esc(hex.short)} <span>${esc(hex.full)}</span></h3>
+          <p>上 ${hex.upper} ${esc(hex.upperTri.name)} · ${esc(hex.upperTri.nature)}　下 ${hex.lower} ${esc(hex.lowerTri.name)} · ${esc(hex.lowerTri.nature)}　${esc(hex.palace)}</p>
+        </div>
+        ${levelBadge(hex.level)}
+      </div>
+      <div class="meta-grid">
+        <div class="meta-item"><label>上卦</label><strong>${hex.upper} ${esc(hex.upperTri.name)} <em>${esc(hex.upperTri.nature)} · ${esc(hex.upperTri.el)}</em></strong></div>
+        <div class="meta-item"><label>下卦</label><strong>${hex.lower} ${esc(hex.lowerTri.name)} <em>${esc(hex.lowerTri.nature)} · ${esc(hex.lowerTri.el)}</em></strong></div>
+        <div class="meta-item"><label>宫位</label><strong>${esc(hex.palace)}</strong></div>
+        <div class="meta-item"><label>八宅参考</label><strong>${esc(adj.rating)}</strong></div>
+      </div>
+      <div class="subsection">
+        <div class="subhead"><h4>起卦</h4><span class="muted">${esc(parsed.mode)} · ${esc(usedLabel)}</span></div>
+        ${calcHTML(parsed)}
+        <div class="note-line">原数：${esc(parsed.original)}${parsed.isPhone ? `　手机后四位：${esc(parsed.usedDigits)}` : ''}</div>
+      </div>
+      ${warningHTML(warnings)}
+      <div class="subsection">
+        <div class="subhead"><h4>八宅数字参考</h4>${ratingPill(adj.rating)}</div>
+        <div class="star-summary">
+          <span class="stat-pill">吉星 <b>${adj.good}</b></span>
+          <span class="stat-pill">伏位 <b>${adj.neutral}</b></span>
+          <span class="stat-pill">凶星 <b>${adj.bad}</b></span>
+          <span class="stat-pill">空亡 <b>${adj.empty}</b></span>
+        </div>
+        ${split.length && parsed.usedDigits.length === 4 ? `<div class="subhead"><h4 style="font-size:14px">前二后二</h4><span class="muted">分组组合</span></div>${pairChips(split)}` : ''}
+        <div class="subhead"><h4 style="font-size:14px">相邻组合</h4><span class="muted">逐两位看八宅</span></div>
+        ${pairRows(adj.pairs)}
+        ${fullAdj ? `<details class="more"><summary>整串相邻组合（参考，共 ${fullAdj.pairs.length} 组）</summary>${pairRows(fullAdj.pairs)}</details>` : ''}
+      </div>
+      <div class="result-actions">
+        <button class="btn ghost" type="button" data-hex="${esc(hex.code)}">按此卦配数</button>
+      </div>
+    `;
+  }
+
+  /* ---------------- 生成器 ---------------- */
+  const poolCache = {};
+  function getPools(allowed){
+    if (poolCache[allowed]) return poolCache[allowed];
+    const pools = {1:new Map(),2:new Map(),3:new Map()};
+    const add = (s) => {
+      const v = reduce8(digitSum(s));
+      if (!pools[s.length].has(v)) pools[s.length].set(v, []);
+      pools[s.length].get(v).push(s);
+    };
+    for (const a of allowed) add(a);
+    for (const a of allowed) for (const b of allowed) add(a+b);
+    for (const a of allowed) for (const b of allowed) for (const c of allowed) add(a+b+c);
+    poolCache[allowed] = pools;
+    return pools;
+  }
+
+  function generateCandidates(hex, length, avoid05){
+    const allowed = avoid05 ? '12346789' : '0123456789';
+    const pools = getPools(allowed);
+    const sp = SPLITS[length];
+    if (!sp) return {results:[], total:0, reason:'不支持的位数。'};
+    const upperPool = pools[sp[0]].get(hex.upper) || [];
+    const lowerPool = pools[sp[1]].get(hex.lower) || [];
+    if (!upperPool.length || !lowerPool.length) {
+      const missing = !upperPool.length ? '上卦' : '下卦';
+      return {
+        results:[], total:0,
+        reason:`${missing} ${missing==='上卦'?hex.upper:hex.lower} ${missing==='上卦'?hex.upperTri.name:hex.lowerTri.name} 在该位数、当前过滤条件下没有组合。可以关闭“避开 0、5”，或换一个位数。`
+      };
+    }
+    const results = [];
+    for (const a of upperPool) {
+      for (const b of lowerPool) {
+        const num = a+b;
+        if (num.endsWith('0')) continue;
+        const adj = analyzeBazhai(num);
+        const split = length === 4 ? splitPairsFor(num) : (length === 2 ? [classifyPair(num)] : []);
+        let score = pairScore(adj.pairs);
+        if (length === 4 && split.length) score += 0.5 * pairScore(split);
+        const counts = {'天医':0,'生气':0,'延年':0};
+        for (const p of adj.pairs) if (counts[p.name] !== undefined) counts[p.name]++;
+        results.push({num, adj, split, score, counts});
+      }
+    }
+    results.sort((a,b)=>{
+      if (b.score !== a.score) return b.score - a.score;
+      if (b.counts['天医'] !== a.counts['天医']) return b.counts['天医'] - a.counts['天医'];
+      if (b.counts['生气'] !== a.counts['生气']) return b.counts['生气'] - a.counts['生气'];
+      if (b.counts['延年'] !== a.counts['延年']) return b.counts['延年'] - a.counts['延年'];
+      if (a.adj.bad !== b.adj.bad) return a.adj.bad - b.adj.bad;
+      return a.num.localeCompare(b.num);
+    });
+    return {results, total:results.length, reason:''};
+  }
+
+  function numberDisplay(num, prefix){
+    if (!prefix) return esc(num);
+    return `${esc(prefix)}<span class="suffix">${esc(num)}</span>`;
+  }
+
+  function renderGenerator(){
+    const box = $('#generate-result');
+    const code = $('#hex-select').value;
+    const hex = HEX[code];
+    if (!hex) return;
+    const length = Number($('#length-select').value);
+    const avoid05 = $('#avoid05').checked;
+    const prefix = $('#prefix-input').value.trim().replace(/[^0-9A-Za-z]/g,'');
+    const data = generateCandidates(hex, length, avoid05);
+    const splitLabel = {2:'直读',3:'1+2',4:'2+2',5:'2+3',6:'3+3'}[length] || '';
+    const ruleText = length === 2
+      ? '十位为上卦，个位为下卦。'
+      : length === 3
+        ? '第 1 位为上卦；后 2 位之和为下卦。'
+        : length === 4
+          ? '前 2 位之和为上卦；后 2 位之和为下卦。'
+          : length === 5
+            ? '前 2 位之和为上卦；后 3 位之和为下卦。'
+            : '前 3 位之和为上卦；后 3 位之和为下卦。';
+
+    const target = `
+      <div class="target-card">
+        <div class="target-code">${esc(hex.code)}</div>
+        <div class="target-info">
+          <h3>${esc(hex.short)} <span>${esc(hex.full)}</span></h3>
+          <p>上 ${hex.upper} ${esc(hex.upperTri.name)} · 下 ${hex.lower} ${esc(hex.lowerTri.name)} · ${esc(hex.palace)} · ${esc(hex.level)}</p>
+        </div>
+        ${levelBadge(hex.level)}
+      </div>
+      <p class="rule-note">${splitLabel} 分组：${ruleText}　超过 8 减 8，0 按 8 算。${prefix ? '前缀仅用于展示，六十四卦与八宅仍按后四位分析。' : ''}</p>
+    `;
+
+    if (!data.results.length) {
+      box.innerHTML = target + `<div class="empty-state">${esc(data.reason || '没有找到组合。')}</div>`;
+      return;
+    }
+
+    const best = data.results[0];
+    const bestDisplay = prefix ? prefix + best.num : best.num;
+    const more = data.results.slice(1, 25);
+    const hasBad = best.adj.bad + best.adj.empty > 0;
+    let note = hasBad
+      ? '受分组结构限制，本卦在当前位数下没有八宅全吉组合；结果已按八宅吉星数量排序，六十四卦仍是主判断。'
+      : '已找到八宅全吉组合，以下按八宅评分排序。';
+    if (length === 4 && hex.lower === 3) {
+      note += ' 下卦为离 3 时，后两位之和必为 3 或 11，对应八宅 12/21（绝命）或 38/83/47/74/29/92（六煞），所以四位下必然带一个凶星。';
+    }
+
+    box.innerHTML = target + `
+      <div class="best-card">
+        <div class="best-top">
+          <div>
+            <div class="best-label">首选 · ${esc(hex.code)} ${esc(hex.short)}</div>
+            <div class="best-number">${numberDisplay(best.num, prefix)}</div>
+          </div>
+          <div class="best-actions">
+            ${ratingPill(best.adj.rating)}
+            <button class="copy-btn" type="button" data-copy="${esc(bestDisplay)}">复制</button>
+          </div>
+        </div>
+        <div class="best-stars">${best.adj.pairs.map(pairStarChip).join('')}</div>
+        <div class="note-line">${esc(note)}</div>
+      </div>
+      <div class="subhead" style="margin-top:20px"><h4>更多组合</h4><span class="muted">共 ${data.total} 组 · 显示前 ${more.length + 1} 组</span></div>
+      <div class="result-cards">
+        ${more.map(r=>`
+          <div class="result-card">
+            <div class="rc-left">
+              <div class="rc-num">${esc(r.num)}</div>
+              <div class="rc-stars">${r.adj.pairs.map(pairStarChip).join('')}</div>
+            </div>
+            <div class="rc-right">
+              <span class="rc-rating">${esc(r.adj.rating)}</span>
+              <button class="copy-btn" type="button" data-copy="${esc(prefix ? prefix + r.num : r.num)}">复制</button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  /* ---------------- 表格 / 图例 ---------------- */
+  function renderLegend(){
+    const el = $('#legend-row');
+    el.innerHTML = Object.entries(LEVEL_META).map(([level,meta])=>
+      `<span class="legend-item"><span class="legend-dot" style="--c:${meta.color}"></span>${esc(level)}</span>`
+    ).join('') + `<span class="legend-item"><span class="legend-dot" style="--c:#8f98a8"></span>八宅参考层</span>`;
+  }
+
+  function renderHexSelect(){
+    const select = $('#hex-select');
+    select.innerHTML = HEX_LIST.map(h=>
+      `<option value="${h.code}">${h.code} ${esc(h.short)} · ${esc(h.level)} · ${esc(h.palace)}</option>`
+    ).join('');
+    select.value = '43';
+  }
+
+  function renderGrid(){
+    const grid = $('#hex-grid');
+    if (grid.dataset.ready === '1') return;
+    const cells = [];
+    cells.push('<div class="grid-corner">下卦＼上卦</div>');
+    for (let u=1; u<=8; u++) cells.push(`<div class="grid-head">${u} ${esc(TRI[u].name)}</div>`);
+    for (let l=1; l<=8; l++) {
+      cells.push(`<div class="grid-head row-head">${l} ${esc(TRI[l].name)}</div>`);
+      for (let u=1; u<=8; u++) {
+        const h = HEX[String(u)+String(l)];
+        cells.push(`<button class="hex-cell" type="button" data-hex="${h.code}" style="--c:${LEVEL_META[h.level].color}" title="${h.code} ${esc(h.full)} · ${esc(h.level)} · ${esc(h.palace)}"><span class="c">${h.code}</span><span class="n">${esc(h.short)}</span></button>`);
+      }
+    }
+    grid.innerHTML = cells.join('');
+    grid.dataset.ready = '1';
+  }
+
+  /* ---------------- 交互 ---------------- */
+  function activateTab(name){
+    $$('.tab').forEach(b=>b.classList.toggle('active', b.dataset.tab === name));
+    $$('.tab-panel').forEach(p=>p.classList.toggle('active', p.id === 'panel-'+name));
+    if (name === 'grid') renderGrid();
+    if (name === 'generate') {
+      renderGenerator();
+      $('#panel-generate').scrollIntoView({behavior:'smooth',block:'start'});
+    }
+  }
+
+  function goGenerate(code){
+    if (!HEX[code]) return;
+    $('#hex-select').value = code;
+    activateTab('generate');
+  }
+
+  async function copyText(text, btn){
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch (e) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch (e2) {}
+      document.body.removeChild(ta);
+    }
+    if (btn) {
+      const old = btn.textContent;
+      btn.textContent = '已复制';
+      setTimeout(()=>{btn.textContent = old;}, 1100);
+    }
+  }
+
+  function init(){
+    renderLegend();
+    renderHexSelect();
+    renderGrid();
+
+    $('#lookup-form').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      renderLookup($('#number-input').value);
+    });
+
+    $$('.chip[data-example]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        $('#number-input').value = btn.dataset.example;
+        renderLookup(btn.dataset.example);
+      });
+    });
+
+    $('#generate-btn').addEventListener('click', renderGenerator);
+    $('#hex-select').addEventListener('change', ()=>{ if ($('#panel-generate').classList.contains('active')) renderGenerator(); });
+    $('#length-select').addEventListener('change', ()=>{ if ($('#panel-generate').classList.contains('active')) renderGenerator(); });
+    $('#avoid05').addEventListener('change', ()=>{ if ($('#panel-generate').classList.contains('active')) renderGenerator(); });
+    $('#prefix-input').addEventListener('input', ()=>{ if ($('#panel-generate').classList.contains('active')) renderGenerator(); });
+
+    $('#tabs').addEventListener('click', (e)=>{
+      const btn = e.target.closest('.tab');
+      if (btn) activateTab(btn.dataset.tab);
+    });
+
+    document.addEventListener('click', (e)=>{
+      const hexBtn = e.target.closest('[data-hex]');
+      if (hexBtn) {
+        goGenerate(hexBtn.dataset.hex);
+        return;
+      }
+      const copyBtn = e.target.closest('[data-copy]');
+      if (copyBtn) copyText(copyBtn.dataset.copy, copyBtn);
+    });
+
+    // URL 参数：?tab=generate&hex=43&len=4&n=1431&gen=1
+    const params = new URLSearchParams(location.search);
+    if (params.get('hex') && HEX[params.get('hex')]) $('#hex-select').value = params.get('hex');
+    if (params.get('len') && SPLITS[params.get('len')]) $('#length-select').value = params.get('len');
+    if (params.get('n')) {
+      $('#number-input').value = params.get('n');
+      renderLookup(params.get('n'));
+    }
+    const tab = params.get('tab');
+    if (tab === 'lookup' || tab === 'generate' || tab === 'grid' || tab === 'rules') {
+      activateTab(tab);
+    }
+    if (params.get('gen') === '1') renderGenerator();
+
+    if (params.get('selftest') === '1') runSelfTest();
+  }
+
+  /* ---------------- 自测 ---------------- */
+  function runSelfTest(){
+    const tests = [];
+    const t = (name, actual, expected) => {
+      const pass = JSON.stringify(actual) === JSON.stringify(expected);
+      tests.push({name, pass, actual, expected});
+    };
+    const levelCounts = {};
+    for (const h of Object.values(HEX)) levelCounts[h.level] = (levelCounts[h.level]||0)+1;
+
+    t('六十四卦数量', Object.keys(HEX).length, 64);
+    t('有吉凶的卦数', Object.values(HEX).filter(h=>h.level !== '—').length, 64);
+    t('有宫位的卦数', Object.values(HEX).filter(h=>h.palace !== '—').length, 64);
+    t('大吉数量', levelCounts['大吉'], 14);
+    t('吉数量', levelCounts['吉'], 10);
+    t('小吉数量', levelCounts['小吉'], 20);
+    t('凶数量', levelCounts['凶'], 9);
+    t('大凶数量', levelCounts['大凶'], 11);
+    t('43 卦名', HEX['43'].full, '雷火丰');
+    t('63 卦名', HEX['63'].full, '水火既济');
+    t('解析 43', parseNumber('43').code, '43');
+    t('解析 1431', parseNumber('1431').code, '54');
+    t('解析 2824', parseNumber('2824').code, '26');
+    t('解析 1992824', parseNumber('1992824').code, '38');
+    t('解析 2A333', parseNumber('2A333').code, '21');
+    t('解析 1080', parseNumber('1080').code, '18');
+    t('解析 0428', parseNumber('0428').code, '42');
+    const phone = parseNumber('19928241234');
+    t('手机取后四位', phone.usedDigits, '1234');
+    t('手机卦码', phone.code, '37');
+    t('手机识别', phone.isPhone, true);
+    t('解析 04', parseNumber('04').code, '84');
+    let pairMissing = 0;
+    for (const a of '12346789') for (const b of '12346789') {
+      if (classifyPair(a+b).name === '未分类') pairMissing++;
+    }
+    t('八宅双数全覆盖', pairMissing, 0);
+    t('八宅 43', classifyPair('43').name, '延年');
+    t('八宅 63', classifyPair('63').name, '五鬼');
+    t('八宅 38', classifyPair('38').name, '六煞');
+    t('八宅 86', classifyPair('86').name, '天医');
+    t('八宅 92', classifyPair('92').name, '六煞');
+
+    const gen = generateCandidates(HEX['43'], 4, true);
+    t('43 四位有结果', gen.results.length > 0, true);
+    t('43 四位结果均归 43', gen.results.every(r=>parseNumber(r.num).code === '43'), true);
+    t('43 首选', gen.results[0].num, '3138');
+    const gen63 = generateCandidates(HEX['63'], 4, true);
+    t('63 四位结果均归 63', gen63.results.every(r=>parseNumber(r.num).code === '63'), true);
+    t('63 首选', gen63.results[0].num, '8683');
+    const gen2 = generateCandidates(HEX['43'], 2, true);
+    t('43 两位结果数', gen2.results.length, 1);
+    t('43 两位首选', gen2.results[0].num, '43');
+    const gen6 = generateCandidates(HEX['11'], 6, true);
+    t('11 六位有结果', gen6.results.length > 0, true);
+    t('11 六位结果均归 11', gen6.results.every(r=>parseNumber(r.num).code === '11'), true);
+    const gen5empty = generateCandidates(HEX['15'], 2, true);
+    t('避开 5 时二位无解', gen5empty.results.length, 0);
+
+    const out = {passed: tests.filter(x=>x.pass).length, total: tests.length, failures: tests.filter(x=>!x.pass), tests};
+    const el = document.createElement('pre');
+    el.id = 'selftest-output';
+    el.textContent = JSON.stringify(out, null, 2);
+    el.style.cssText = 'position:fixed;left:-9999px;top:0;white-space:pre;';
+    document.body.appendChild(el);
+    console.log('SELFTEST', out);
+  }
+
+  window.addEventListener('error', (e)=>{
+    let el = document.getElementById('js-error');
+    if (!el) {
+      el = document.createElement('pre');
+      el.id = 'js-error';
+      el.className = 'js-error';
+      document.body.appendChild(el);
+    }
+    el.textContent = `脚本错误：${e.message}\n${e.filename || ''}:${e.lineno || ''}`;
+  });
+  window.addEventListener('unhandledrejection', (e)=>{
+    let el = document.getElementById('js-error');
+    if (!el) {
+      el = document.createElement('pre');
+      el.id = 'js-error';
+      el.className = 'js-error';
+      document.body.appendChild(el);
+    }
+    el.textContent = '脚本错误：' + (e.reason && e.reason.message ? e.reason.message : String(e.reason));
+  });
+
+  if (document.readyState==='loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
 
 </script>
 

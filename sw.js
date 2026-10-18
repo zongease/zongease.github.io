@@ -1,5 +1,5 @@
 /* 小工具 PWA service worker — 作者：宗燡 */
-const CACHE = 'zongease-v1';
+const CACHE = 'xiaogongju-cos2';
 const PRECACHE = [
   './index.html',
   './manifest.webmanifest',
