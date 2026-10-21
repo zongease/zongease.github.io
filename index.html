@@ -1096,12 +1096,13 @@ body {
 #view-qm .qm-dp-note{color:#555;margin-bottom:4px}
 #view-qm .qm-dp-legend{margin-top:8px;font-size:.75rem;color:#777;text-align:center}
 #view-qm .hl-yong-t{color:#1e6fd9} #view-qm .hl-final-t{color:#1aa05a} #view-qm .hl-before-t{color:#8e44ad}
-#view-qm .hl-after-t{color:#f28c28} #view-qm .hl-cause-t{color:#e53935}
+#view-qm .hl-after-t{color:#f28c28} #view-qm .hl-yg-t{color:#b8860b}
 #view-qm .qm-cell.hl-yong{outline:2px solid #1e6fd9;outline-offset:-2px;z-index:1}
 #view-qm .qm-cell.hl-final{outline:2px solid #1aa05a;outline-offset:-2px;z-index:1}
 #view-qm .qm-cell.hl-before{outline:2px solid #8e44ad;outline-offset:-2px;z-index:1}
 #view-qm .qm-cell.hl-after{outline:2px solid #f28c28;outline-offset:-2px;z-index:1}
-#view-qm .qm-cell.hl-cause{outline:2px solid #e53935;outline-offset:-2px;z-index:1}
+#view-qm .qm-cell.hl-yg{outline:2px dashed #b8860b;outline-offset:-2px;z-index:1}
+#view-qm .qm-dp-res{display:flex;flex-wrap:wrap;gap:6px 16px;margin:6px 0;font-size:.95rem}
 #view-qm .qm-cell.hl-focus{box-shadow:inset 0 0 0 2px rgba(18,194,181,.55)}
 #view-qm .qm-cell{cursor:pointer}
 
@@ -3705,8 +3706,8 @@ var QM = (function(){
 /* 断盘辅助 UI —— 挂在 #view-qm，依赖 QM.duanpan */
 (function(){
   var $=function(id){return document.getElementById(id);};
-  var STATE={ch:null, focus:null, result:null, fan:null, yin:null};
-  var HL={yong:'hl-yong', final:'hl-final', before:'hl-before', after:'hl-after', cause:'hl-cause', focus:'hl-focus'};
+  var STATE={ch:null, focus:null, result:null, fan:null, yin:null, show:{}};
+  var HL={yong:'hl-yong', final:'hl-final', before:'hl-before', after:'hl-after', yg:'hl-yg', focus:'hl-focus'};
   function nameToNum(n){for(var k in QM.PALACE) if(QM.PALACE[k]===n) return Number(k); return null;}
   function snapHtml(s){
     if(!s) return '';
@@ -3718,7 +3719,7 @@ var QM = (function(){
   }
   function clearHL(){
     document.querySelectorAll('#qm-out .qm-cell').forEach(function(c){
-      c.classList.remove('hl-yong','hl-final','hl-before','hl-after','hl-cause','hl-focus');
+      c.classList.remove('hl-yong','hl-final','hl-before','hl-after','hl-yg','hl-focus');
     });
   }
   function mark(names, cls){
@@ -3732,8 +3733,9 @@ var QM = (function(){
     var r=STATE.result; if(!r||!r.ok) return;
     mark([r.用神宫.宫], HL.yong);
     if(r.是否转宫) mark([r.终宫.宫], HL.final);
-    if(STATE.fan){ mark(STATE.fan.之前.目标宫, HL.before); mark(STATE.fan.之后.目标宫, HL.after); }
-    if(STATE.yin) mark(STATE.yin.目标宫, HL.cause);
+    if(STATE.fan&&STATE.show.before) mark(STATE.fan.之前.目标宫, HL.before);
+    if(STATE.fan&&STATE.show.after) mark(STATE.fan.之后.目标宫, HL.after);
+    if(STATE.yin) mark(STATE.yin.目标宫, HL.yg);
     if(STATE.focus) mark([QM.PALACE[STATE.focus]], HL.focus);
   }
   function optsFromUI(){
@@ -3757,52 +3759,40 @@ var QM = (function(){
   function runDuan(){
     if(!STATE.ch) return;
     var o=optsFromUI();
-    var r; try{r=QM.duanpan(STATE.ch,o);}catch(e){$('qm-dp-trace').textContent='失败：'+e.message;return;}
-    STATE.result=r; STATE.focus=r.ok?r._finalNum:null; STATE.fan=null; STATE.yin=null;
+    var r; try{r=QM.duanpan(STATE.ch,o);}catch(e){$('qm-dp-body').innerHTML='<div class="qm-dp-empty">用神宫：无</div>';return;}
+    STATE.result=r; STATE.focus=r.ok?r._finalNum:null; STATE.fan=null; STATE.yin=null; STATE.show={};
     renderPanel(); applyHL();
   }
+  function pn(list){return (list&&list.length)?list.join('、'):'无';}
   function renderPanel(){
     var box=$('qm-dp-body'); if(!box) return;
     var r=STATE.result;
     if(!r){box.innerHTML='<div class="qm-dp-empty">选择用神后点「分析」</div>';return;}
-    if(!r.ok){box.innerHTML='<div class="qm-dp-empty">'+(r.trace||[]).join('<br>')+'</div>';return;}
-    var path=r.路径.join(' → ');
-    var html='<div class="qm-dp-path">格局：'+r.格局+'；路径：<b>'+path+'</b></div>';
-    html+='<div class="qm-dp-trace">'+(r.trace||[]).map(function(t){return '· '+t;}).join('<br>')+'</div>';
-    html+='<div class="qm-dp-sec"><div class="qm-dp-tag hl-yong-t">用神＝状态'+(r.是否转宫?'（原宫≈20%）':'')+'</div>'+snapHtml(r.用神宫)+'</div>';
-    if(r.是否转宫) html+='<div class="qm-dp-sec"><div class="qm-dp-tag hl-final-t">转后≈80%</div>'+snapHtml(r.终宫)+'</div>';
+    if(!r.ok){box.innerHTML='<div class="qm-dp-empty">用神宫：无</div>';return;}
+    var html='<div class="qm-dp-res"><span class="hl-yong-t">用神宫：<b>'+r.用神宫.宫+'</b></span>'+
+      '<span class="hl-final-t">目标宫：<b>'+r.终宫.宫+'</b></span></div>';
     var focName=STATE.focus?QM.PALACE[STATE.focus]:r.终宫.宫;
     html+='<div class="qm-dp-ops">关注宫：<b id="qm-dp-foc">'+focName+'</b> '+
       '<button type="button" data-act="before">之前</button> '+
       '<button type="button" data-act="after">之后</button> '+
       '<button type="button" data-act="yin">引干</button> '+
-      '<button type="button" data-act="reset" class="ghost">回到终宫</button></div>';
-    html+='<div id="qm-dp-extra"></div>';
-    html+='<div class="qm-dp-legend">描边：<span class="hl-yong-t">用神原宫</span> <span class="hl-final-t">转后</span> <span class="hl-before-t">之前</span> <span class="hl-after-t">之后</span> <span class="hl-cause-t">原因</span> · 点宫格改关注</div>';
+      '<button type="button" data-act="reset" class="ghost">回到目标宫</button></div>';
+    html+='<div id="qm-dp-extra" class="qm-dp-res"></div>';
+    html+='<div class="qm-dp-legend">描边：<span class="hl-yong-t">用神宫</span> <span class="hl-final-t">目标宫</span> <span class="hl-before-t">之前</span> <span class="hl-after-t">之后</span> <span class="hl-yg-t">引干</span></div>';
     box.innerHTML=html;
     renderExtra();
   }
   function renderExtra(){
     var el=$('qm-dp-extra'); if(!el) return;
     var html='';
-    if(STATE.fan){
-      html+='<div class="qm-dp-sec"><div class="qm-dp-tag hl-before-t">之前＝来龙</div>'+
-        '<div class="qm-dp-note">'+STATE.fan.之前.说明.join('；')+' → '+(STATE.fan.之前.目标宫.join(',')||'无')+'</div>'+
-        STATE.fan.之前.快照.map(snapHtml).join('')+'</div>';
-      html+='<div class="qm-dp-sec"><div class="qm-dp-tag hl-after-t">之后＝去脉</div>'+
-        '<div class="qm-dp-note">'+STATE.fan.之后.说明.join('；')+' → '+(STATE.fan.之后.目标宫.join(',')||'无')+'</div>'+
-        STATE.fan.之后.快照.map(snapHtml).join('')+'</div>';
-    }
-    if(STATE.yin){
-      html+='<div class="qm-dp-sec"><div class="qm-dp-tag hl-cause-t">原因＝引干</div>'+
-        '<div class="qm-dp-note">'+STATE.yin.说明.join('；')+' → '+(STATE.yin.目标宫.join(',')||'无')+'</div>'+
-        STATE.yin.快照.map(snapHtml).join('')+'</div>';
-    }
+    if(STATE.fan&&STATE.show.before) html+='<span class="hl-before-t">之前：<b>'+pn(STATE.fan.之前.目标宫)+'</b></span>';
+    if(STATE.fan&&STATE.show.after) html+='<span class="hl-after-t">之后：<b>'+pn(STATE.fan.之后.目标宫)+'</b></span>';
+    if(STATE.yin) html+='<span class="hl-yg-t">引干：<b>'+pn(STATE.yin.目标宫)+'</b></span>';
     el.innerHTML=html;
   }
   function focusPalace(p){
     if(!STATE.ch||!p||p===5) return;
-    STATE.focus=p; STATE.fan=null; STATE.yin=null;
+    STATE.focus=p; STATE.fan=null; STATE.yin=null; STATE.show={};
     var foc=$('qm-dp-foc'); if(foc) foc.textContent=QM.PALACE[p];
     renderExtra(); applyHL();
   }
@@ -3833,9 +3823,9 @@ var QM = (function(){
     $('qm-dp-body').addEventListener('click',function(e){
       var btn=e.target.closest('[data-act]'); if(!btn||!STATE.ch||!STATE.focus) return;
       var act=btn.getAttribute('data-act');
-      if(act==='reset'){ STATE.focus=STATE.result&&STATE.result._finalNum; STATE.fan=null; STATE.yin=null;
+      if(act==='reset'){ STATE.focus=STATE.result&&STATE.result._finalNum; STATE.fan=null; STATE.yin=null; STATE.show={};
         var foc=$('qm-dp-foc'); if(foc&&STATE.focus) foc.textContent=QM.PALACE[STATE.focus]; renderExtra(); applyHL(); return; }
-      if(act==='before'||act==='after'){ STATE.fan=QM.fanFrom(STATE.ch,STATE.focus); STATE.yin=null; renderExtra(); applyHL(); }
+      if(act==='before'||act==='after'){ STATE.fan=QM.fanFrom(STATE.ch,STATE.focus); STATE.show[act]=true; renderExtra(); applyHL(); }
       if(act==='yin'){ STATE.yin=QM.yinFrom(STATE.ch,STATE.focus); renderExtra(); applyHL(); }
     });
   }
