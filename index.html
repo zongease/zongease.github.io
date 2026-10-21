@@ -1045,17 +1045,74 @@ body {
 #view-lj{margin:-24px;}
 #view-lj .lj-back{margin:14px 0 0 22px !important;padding:8px 14px;border:1px solid var(--line);border-radius:10px;cursor:pointer;background:#243041;color:#e8eef4;font-weight:600;font-size:.88rem}
 
+/* ===== 阴盘奇门排盘 ===== */
+#view-qm.active{display:block;min-height:0}
+#view-qm{margin:-24px;padding:0 0 24px}
+#view-qm .qm-wrap{max-width:480px;margin:0 auto;background:#f4f6f6;color:#222;min-height:100vh;font-size:15px}
+#view-qm .qm-bar{position:relative;background:#12c2b5;color:#fff;text-align:center;font-size:1.1rem;font-weight:600;padding:12px 0;letter-spacing:.1em}
+#view-qm .qm-bar .back-btn{position:absolute;left:8px;top:6px;margin:0 !important;padding:5px 10px !important;font-size:.82rem !important;background:rgba(0,0,0,.18) !important;border:1px solid rgba(255,255,255,.45) !important;color:#fff !important}
+#view-qm .qm-form{background:#fff;margin:10px;border-radius:10px;padding:4px 14px}
+#view-qm .qm-row{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid #eee}
+#view-qm .qm-row:last-child{border-bottom:none}
+#view-qm .qm-lab{width:76px;flex:none;color:#333}
+#view-qm .qm-row input[type=text],#view-qm .qm-row input[type=datetime-local],#view-qm .qm-row select{flex:1;min-width:0;border:none;background:transparent;font-size:15px;color:#222;padding:4px 0;font-family:inherit}
+#view-qm .qm-row input:focus,#view-qm .qm-row select:focus{outline:none;border-bottom:1px solid #12c2b5}
+#view-qm .qm-refresh{flex:none;border:none;background:none;color:#12c2b5;font-size:20px;cursor:pointer;padding:0 4px;line-height:1}
+#view-qm .qm-radios{display:flex;gap:4px 12px;flex-wrap:wrap}
+#view-qm .qm-radios label{display:flex;align-items:center;gap:4px;cursor:pointer}
+#view-qm .qm-radios label.off{color:#bbb;cursor:not-allowed}
+#view-qm .qm-later{font-size:.72rem;color:#aaa;border:1px solid #ddd;border-radius:6px;padding:0 4px;margin-left:2px}
+#view-qm .qm-off{color:#bbb}
+#view-qm .qm-btns{display:flex;gap:10px;margin:14px 10px}
+#view-qm .qm-btns button{flex:1;border:none;border-radius:22px;padding:12px;font-size:1rem;font-weight:600;cursor:pointer;background:#12c2b5;color:#fff}
+#view-qm .qm-btns button.ghost{background:#fff;color:#12c2b5;border:1px solid #12c2b5}
+#view-qm .qm-msg{margin:0 12px;color:#c0392b;font-size:.85rem;min-height:1em}
+#view-qm .qm-out{display:none;background:#fff;margin:10px;border-radius:10px;padding:10px 8px 14px}
+#view-qm .qm-out.show{display:block}
+#view-qm table.qm-hd{width:100%;border-collapse:collapse;font-size:.86rem;margin-bottom:12px}
+#view-qm table.qm-hd td{border:1px solid #e3e3e3;padding:5px 4px;white-space:nowrap;text-align:center;vertical-align:middle}
+#view-qm table.qm-hd td.l{color:#b8860b;font-weight:600;white-space:nowrap;width:44px}
+#view-qm table.qm-hd td.v{text-align:left;white-space:normal}
+#view-qm table.qm-hd td.g{color:#b8860b}
+#view-qm table.qm-hd .pz{font-weight:700;font-size:1rem;line-height:1.35}
+#view-qm .qm-pan{display:grid;grid-template-columns:minmax(28px,auto) repeat(3,1fr) minmax(28px,auto);grid-template-rows:26px repeat(3,auto) 26px;align-items:center;justify-items:center;max-width:400px;margin:0 auto}
+#view-qm .qm-yin{font-size:1rem;color:#333;font-weight:600;white-space:nowrap;padding:0 3px}
+#view-qm .qm-ma{color:#e53935;font-weight:700}
+#view-qm .qm-cell{justify-self:stretch;align-self:stretch;border:1px solid #cfd8d8;margin:-.5px;padding:5px 7px;min-height:92px;display:grid;grid-template-columns:1fr auto;grid-template-rows:auto 1fr 1fr;row-gap:3px;position:relative;background:#fff;font-size:1.05rem}
+#view-qm .qm-cell.mid{background:#fafafa}
+#view-qm .qm-cell .god{color:#555;font-size:.95rem}
+#view-qm .qm-cell .kong{color:#555;font-size:.9rem;justify-self:end}
+#view-qm .qm-cell .gan{align-self:center;font-weight:600}
+#view-qm .qm-cell .sx,#view-qm .qm-cell .mn{align-self:center;justify-self:end;color:#333}
+#view-qm .qm-cell .mn.po{color:#e53935;font-weight:700}
+#view-qm .h-mu{color:#f28c28}
+#view-qm .h-xing{color:#8e44ad}
+#view-qm .h-xm{color:#1e6fd9}
+#view-qm .h-po{color:#e53935}
+#view-qm .qm-legend{margin:12px 6px 0;font-size:.82rem;color:#666;text-align:center}
+#view-qm .qm-legend b{font-weight:600}
+#view-qm .qm-note{margin:6px 6px 0;font-size:.75rem;color:#999;text-align:center}
+#view-qm .qm-rec{display:none;background:#fff;margin:10px;border-radius:10px;padding:6px 12px}
+#view-qm .qm-rec.show{display:block}
+#view-qm .qm-rec .it{padding:10px 0;border-bottom:1px solid #eee;cursor:pointer;display:flex;justify-content:space-between;gap:8px}
+#view-qm .qm-rec .it:last-child{border-bottom:none}
+#view-qm .qm-rec .it .t{color:#222}
+#view-qm .qm-rec .it .s{color:#888;font-size:.82rem;white-space:nowrap}
+#view-qm .qm-rec .empty{color:#999;text-align:center;padding:14px 0}
+#view-qm .qm-rec .clr{display:block;margin:8px auto 4px;border:none;background:none;color:#999;font-size:.82rem;cursor:pointer}
+
   </style>
 </head>
 <body>
   <section id="view-home" class="view active" aria-label="主页">
     <div class="home-card">
       <h1>小工具</h1>
-      <p class="sub">数字起卦 · 八字笔记 · 时差计算 · 数字能量-两极</p>
+      <p class="sub">数字起卦 · 八字笔记 · 时差计算 · 数字能量-两极 · 阴盘奇门</p>
       <button type="button" class="nav-btn" data-go="qg">数字起卦</button>
       <button type="button" class="nav-btn" data-go="bz">八字笔记生成器</button>
       <button type="button" class="nav-btn" data-go="sc">时差计算</button>
       <button type="button" class="nav-btn" data-go="lj">数字能量-两极</button>
+      <button type="button" class="nav-btn" data-go="qm">阴盘奇门排盘</button>
       <footer class="credit"><div>作者：<strong>宗燡</strong></div></footer>
     </div>
   </section>
@@ -1393,6 +1450,27 @@ body {
   </main>
 
   <footer>数字能量 · 卦数 &nbsp;|&nbsp; 六十四卦为主 · 八宅为辅 &nbsp;|&nbsp; v1.2 · 2026-10-18</footer>
+</div>
+</section>
+
+<section id="view-qm" class="view" aria-label="阴盘奇门排盘">
+<div class="qm-wrap">
+  <div class="qm-bar"><button type="button" class="back-btn" data-back="home">← 返回</button>阴盘奇门</div>
+  <div class="qm-form">
+    <div class="qm-row"><span class="qm-lab">事项</span><input type="text" id="qm-matter" placeholder="请输入事项（选填）" maxlength="60" autocomplete="off"></div>
+    <div class="qm-row"><span class="qm-lab">排盘时间</span><input type="datetime-local" id="qm-time" step="60"><button type="button" class="qm-refresh" id="qm-now" title="取当前时间" aria-label="取当前时间">↻</button></div>
+    <div class="qm-row"><span class="qm-lab">排盘类型</span><div class="qm-radios">
+      <label class="off"><input type="radio" name="qm-type" disabled>年盘<span class="qm-later">后续</span></label>
+      <label><input type="radio" name="qm-type" value="shi" checked>时盘</label>
+      <label class="off"><input type="radio" name="qm-type" disabled>刻盘<span class="qm-later">后续</span></label>
+    </div></div>
+    <div class="qm-row"><span class="qm-lab">自选局数</span><select id="qm-ju"></select></div>
+    <div class="qm-row qm-off"><span class="qm-lab">真太阳时</span><label class="qm-off"><input type="checkbox" disabled> 按出生地校正 <span class="qm-later">后续</span></label></div>
+  </div>
+  <div class="qm-btns"><button type="button" id="qm-go">开始排盘</button><button type="button" class="ghost" id="qm-recbtn">排盘记录</button></div>
+  <div class="qm-msg" id="qm-msg"></div>
+  <div class="qm-rec" id="qm-rec"></div>
+  <div class="qm-out" id="qm-out"></div>
 </div>
 </section>
 
@@ -3322,6 +3400,202 @@ body {
   });
 
   if (document.readyState==='loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+
+</script>
+
+<script>
+/* ===== 阴盘奇门排盘 ===== */
+
+var QM = (function(){
+  var GAN="甲乙丙丁戊己庚辛壬癸", ZHI="子丑寅卯辰巳午未申酉戌亥", YI="戊己庚辛壬癸丁丙乙";
+  var PALACE={1:"坎",2:"坤",3:"震",4:"巽",5:"中",6:"乾",7:"兑",8:"艮",9:"离"};
+  var RING=[1,8,3,4,9,2,7,6];
+  var STAR0={1:"蓬",8:"任",3:"冲",4:"辅",9:"英",2:"芮",7:"柱",6:"心"};
+  var DOOR0={1:"休",8:"生",3:"伤",4:"杜",9:"景",2:"死",7:"惊",6:"开"};
+  var GODS=["符","蛇","阴","六","白","玄","地","天"];
+  var GOD_FULL={"符":"值符","蛇":"腾蛇","阴":"太阴","六":"六合","白":"白虎","玄":"玄武","地":"九地","天":"九天"};
+  var XUN_YI="戊己庚辛壬癸";
+  var ZHI_PALACE={"子":1,"丑":8,"寅":8,"卯":3,"辰":4,"巳":4,"午":9,"未":2,"申":2,"酉":7,"戌":6,"亥":6};
+  var MA={"申":"寅","子":"寅","辰":"寅","亥":"巳","卯":"巳","未":"巳","寅":"申","午":"申","戌":"申","巳":"亥","酉":"亥","丑":"亥"};
+  var XING={"戊":3,"己":2,"庚":8,"辛":9,"壬":4,"癸":4};
+  var MU={"甲":2,"癸":2,"乙":6,"丙":6,"戊":6,"丁":8,"己":8,"庚":8,"辛":4,"壬":4};
+  var POHAI={"休":[9],"生":[1],"死":[1],"伤":[8,2],"杜":[8,2],"景":[7,6],"惊":[3,4],"开":[3,4]};
+  var JQ="冬至 小寒 大寒 立春 雨水 惊蛰 春分 清明 谷雨 立夏 小满 芒种 夏至 小暑 大暑 立秋 处暑 白露 秋分 寒露 霜降 立冬 小雪 大雪".split(" ");
+  var YUEJIANG={"雨水":"亥","春分":"戌","谷雨":"酉","小满":"申","夏至":"未","大暑":"午","处暑":"巳","秋分":"辰","霜降":"卯","小雪":"寅","冬至":"丑","大寒":"子"};
+  /* 节气表：sxtwl(寿星历) 1899–2102 北京时间，秒级（与 ref.py 同样取整），增量 base36 编码 */
+  var JQT={i0:3,t0:-2237557984,base:1271265,d:"080p0exk0m7q0v9i13nq1cl71jra1q561tzd1vyu1vax1sar1nb21g7t18de0z9o0qt60i670bea05dg0216000000yj03ax08fa0ehh0mno0utv144g1c5x1k7a1prr1uch1vpq1vie1s761nbu1g9s18900zfd0qla0id70b4l05kf01rb006s00pk03i3087h0eqe0mg90v5p13vk1ckp1juu1q831twm1w5f1v221skc1myq1gjp180w0zmz0qhd0iji0b2b05q301od00c100l203mt081n0eth0ma40v5w13rl1cgv1jvm1pyv1u3c1vr21vec1s3r1nee1g4118hy0za50qz70i9b0bkg05gh025x000r010s038o08ey0ed70mll0upm141p1c3m1k3u1prx1u7f1vrw1vc01sbk1n601ggd185b0znu0qjy0imz0b4g05ua01q900es00ls03mv080b0err0m6m0v4w13lw1cjt1joc1q8i1tv21w6b1v4x1sk71n401ghp186t0zjd0qnj0ifn0b9a05mu01w3009100sh03iw087o0eo50mey0uzc13vw1c9m1jzr1ps81u7g1vms1vht1s1z1nfu1g3p18gp0z9v0qvm0i8u0bga05gx0239003d010q03dj08go0ej60mmw0uv814091c7y1jyh1pv21tz91vuv1v3v1set1mzp1gjj18120zqx0qhh0iq20b2o05x101o600hc00jd03pt07y80ev20m4x0v7f13kh1cjp1jn61q4l1tui1vze1v6d1sd51n8s1gcu18eh0zgt0qwf0idq0bhd05je021x003200w003b008a80efv0mhv0urz13zk1c481k411pq01ub11vnd1vil1s441ndk1g7818d20zer0qrn0ieh0bc305m301y2006s00tx03f3088r0ekj0mfc0uyk13ua1ce91juh1q3j1tx21w351v2k1sjt1my51gk817zl0zou0qgp0inc0b3305vd01q100hd00m203qh080c0eue0m5p0v4i13l21cf51jp31pyr1tyc1vt01vbl1s6r1ndf1g6h18hd0zb00qyi0i9i0bk605h6026h002c011y03ak08fr0ee10mkx0uo313ze1bzq1k1i1pna1u751vo41vek1s9g1nan1gfm18a50zmt0qn60ikg0b5w05qk01r200az00n403js082i0epg0m8z0v2n13n91cgx1jnu1q5q1ttd1w5i1v3d1sm91n3c1gmb186z0zoy0qn80ik60b6x05p001rd009600md03id081p0eod0ma00v0z13s31cc31jwf1puc1u4h1vo51vgg1s391nh11g5i18k80zc20r0c0iak0bk905gs024t000f00zd038608dh0ecx0mjx0upn13zd1c3u1k0e1ps91u2u1vss1v7v1sdm1n3q1gjv185c0zsr0qlw0iso0b6n05yz01qk00gx00j503mb07v40ep40m010v1413fl1cfq1jju1q4n1tt41w341v631sin1n8k1gim18e70zma0qwe0ij20bhf05oi021i007600u103d4085s0efd0maw0upe13rp1c111jxw1po41u8x1vnr1vl21s621nj31g9718jb0zfn0qxb0ie70bgw05l4022b005d00xi03ct08b30egj0mfq0usa13sv1c6b1jsg1pw61tw91vz01v4b1skd1n2a1gom184c0zuh0qk80irw0b4d05xy01ph00id00ko03qo07yf0eu50m2x0v3q13gq1cdr1jj71pxl1ts41vtc1v771s9s1ncm1gca18k20zi70r2l0ifw0bn105l6026p003s00zr03aa08ch0ed70mhr0un613wu1by31jzk1pkb1u5x1vk31vez1s5q1ndi1ge018fw0znt0qux0imv0bds05s701x500a100qc03fx083a0ejw0m8s0ux613ng1ccp1joh1q2u1tte1w3u1v281sm01n1g1gnw185o0zsu0qnm0iq60b8k05vw01sv00ez00m203lo07yn0ep40m4s0v0m13mc1cci1jrq1pwc1u1d1vqq1vek1s511nfx1g5z18ju0zbx0r160ib60bmo05ip028d002z012q039x08fc0ecj0mjn0umt13y01bzl1k021poh1u531vqd1vc41sc91n841gip188g0zqw0qni0iqb0b7o05ww01s500fm00lp03ln07y20eod0m270uzk13g11cdk1jiq1q3k1trr1w4w1v5l1sn31n8j1go318do0zqv0qu60ilm0bd705pc01w7007n00p303ee081z0ehz0m880ust13ph1c491jvp1pq91u7e1vp91vlu1s7q1nmi1gb418oa0zgz0r240ids0bjq05i4022g000500vx036s089h0eb60mfj0uoc13ut1c3p1jw51pu81u0b1vxf1v881sk91n6f1gqn188l0zxu0qnv0iv20b6e05z801ox00gl00hb03m607t60eop0lxi0uzo13cp1ccw1jh91q0e1tro1vyh1v6z1sfj1ncl1gic18kw0zoa0r420ilj0bo605pl0266005y00we039h08620e9u0m9p0uiv13pn1but1jvm1pjd1u6p1vlf1vjp1s7l1njr1gf518m60zo40r0z0imw0bjg05rq021z008c00tg03c1083t0ed50m6o0uob13k01c3s1jlt1pwh1tt51w271v511sp81n5q1gtj18980zyg0qpg0iut0b8x05zj01sb00hs00ko03nc07vw0ep00lzr0uyj13et1c981jj41ptt1tu11vqw1vb31s8u1nha1gcd18o80zie0r5p0ifu0bpf05l0028w003i011r039e08dh0eb30mh00ujv13ue1buh1jw31phu1u2a1vjy1vc41s881nby1gik18fl0ztr0qvw0iti0bes05y301wj00dx00nj03hq07yf0ejj0m1z0uur13fa1c8t1jgp1pz31to51w1q1v1d1smb1n5c1gqt18d30zx30qw20its0bfq05x401x700cz00n903gq07xe0ei30m240use13j91c4a1jq41pqd1u2i1vok1vhz1s641nkd1g9l18oo0zgs0r5f0ifh0bp405kw0285002b00zy036s08aq0e8c0mei0ujh13tc1bya1jw31ppd1u1t1vtb1va81sgn1n7s1gnm18970zvq0qop0ium0b8h060k01sc00is00l303np07vr0eoa0lxo0uxd13aj1ca41jdy1pz91tol1w011v4l1siy1nac1gm018i30zqu0r0j0in50bki05re0236008o00ud03d3084i0edh0m7o0ulh13mm1bvp1jsc1pj31u4v1vl81vkp1s7x1nnb1gfb18qi0zn00r480ijp0bku05mv0224003100tr037i085a0e9y0m9l0ulz13nn1c1h1jp91ptv1tvx1w0b1v7n1spb1n8l1gvy18by101y0qr40ixf0b8c05zt01p300fm00fs03k307qz0emm0lw40uyc13cp1cbi1jhz1pxw1tsz1vvq1va11sdu1nh81ghp18pm0znr0r7r0ikc0bqf05ng027b002z00x10367086q0e6s0maj0ugg13qh1bt71jw21pik1u5y1vlg1vhw1s961ni81gj118ly0zuc0r2b0iu20bkm05xn020q00b900p403c107x40ebb0lyu0um113ck1c2c1jgf1pwr1tqn1w411v5j1sru1n981gx818ff10320qx40iz80bg1061y01wn00go00l203i807sp0egv0lum0up813a91c1f1jia1pq61tyb1vru1vih1sc51nos1ggb18u90zlu0r9y0ii70bs005lz029t002g010m035y08a40e5y0mc60uer13pk1brh1jso1pig1u161vos1vdj1sfz1neq1gqo18hx10090qwo0ixx0bdz061e01vb00hf00md03kx07w30ekp0lx50ut7138i1c5c1ja31puw1tjx1vyc1v141sla1n9j1gsc18k80zzx0r450iwe0bn505yh022z00cm00r503ef07zc0edk0m1v0ulf13gy1bvj1jmv1phz1tzz1vjc1vhv1s6f1nnw1gfc18uo0zp30rbd0in70bsy05q3028t004200xg035i08610e5c0m8l0ug513mq1bvp1jpi1pom1two1vvf1v821slh1n921gu918d6102z0qts0j0y0bci064n01tm00jw00j103m107rk0eln0ltq0uvf13881c8n1jd41px31tor1vx11v641sfv1ndg1gju18mg0zq20r5u0ing0bq305rv0288008e00y703b9086s0e9z0m8e0ugy13mf1brc1jrr1pfs1u3q1vja1viq1s7f1nkz1ggx18p00zrg0r4v0iql0bmx05ub023l008u00t103ai081n0e9u0m2x0ujl13f51bye1jh61ps31tqe1w0s1v5o1srl1n9w1gza18fn105l0qw00j0n0bd5062201sn00g900hc03ih07q50eii0lt50us4138x1c4q1jg11psz1tus1vtz1vf41sef1nng1gj818uv0zos0rb80ik20bs605lt027r000a00wr032w08650e3g0m9o0udm13pa1bra1juj1pi21u491vn71vgv1sdk1nii1gp118mi0zzt0r1m0ixs0bi7060101xi00dj00lv03ee07tm0ed00luj0umo137i1c1q1jb51puv1tm31w191v2r1sp91n9p1gwl18jk104m0r3j0j1f0bmd0632021500fj00n703er07sr0ebh0ltg0uio138s1buf1jha1pjp1ty71vni1vjp1sb41nri1gik18y70zqc0reg0inf0bvu05pu02ba003b00ys033b085d0e0t0m5r0u9b13j21bo31jnf1pik1ty31vsn1vd21smb1ng51gxa18jo105p0qy00j230beh064c01uc00in00j703k207r30eio0lrv0ur9134c1c401j7w1ptw1tk41vxg1v3r1skk1ne11grp18p00zyo0r840iua0bq905vz025t00a700tz03bv081s0ea50m360ugq13h11bq51jmf1pdi1tzp1vh21vhz1s6p1nof1gie18w10zuk0rdg0iti0buf05uy0285006c00ud035d08100e3f0m1y0ud713ex1bsn1jho1pmx1tqx1vwo1v651spn1nb61h0k18i7109x0qzw0j6n0bh9067m01v900jg00h203ii07mx0eg50lo30up9133j1c3c1jbd1ptu1tqx1vw91vbk1sgz1nkp1gm118tx0zsi0rch0ip20buz05rj02ao005d00y1035t084o0e3c0m5n0ub113ke1bnp1jr41pez1u401vl81vji1sbu1nm71gmv18q60zxn0r5f0iw60bmp05zc022t00dd00ra03dn07xu0eah0lwm0ui1137g1bw31ja41pqf1tlj1w011v3g1srn1nay1h0n18jr108a0r210j420bjs065801yk00i500lb03hz07re0eet0lrl0ulc135g1bw61jcq1pl11ttw1vpb1vho1se61nss1gmg19190ztf0rh10io80bwh05oe02a5000o00x2030y084b0dzg0m5z0u8m13k91bmx1jpa1pg91u0k1vpr1vgd1ska1nkt1gxf18pj107g0r3p0j3f0bia063f01vc00ey00hx03en07p40edf0lqs0unu134m1c2t1j8p1puo1tkk1vzy1v3e1soc1nde1gwx18p4105a0r940j160bqv061h024b00cx00pc03bi07uh0e7y0lv50uey13ah1bqf1jit1pfo1tz51vk31vju1s9b1nrq1gjw19060zvl0ril0ium0bzz05vs02cq005r00ws0328080h0dxe0lz90u5f13c71blh1jhd1pia1ttp1vv41vb11sqs1ngk1h3018mg10ce0r2p0j8y0bjg069v01x700l700ia03iv07md0ee90lku0ul912xr1byw1j4z1prp1tm71vxz1v9f1sm51nl71gt418vr0zz70rdp0itt0buq05up0297007t00vx037u081x0e4h0m1x0uae13fb1bkw1jlk1paw1u0d1vhx1vjq1sai1nqj1gnp18xa0zzp0rd30ixg0bsr05yf026i00ac00ta039c07z20e5p0lxo0ud213841bqn1j9q1pkf1tjz1vv51v221sq11nb11h2y18lm10dq0r550jal0bmh06aj01z200kq00j203hy07n40edi0lmk0uka130h1bwa1j7t1plt1tom1vpx1vcl1set1npo1gnx190y0zwd0rjc0isi0c0605st02d4003k00xn031808250dxb0m270u5713gt1bjj1jnu1pd61u1e1vmc1vi11sg31nmj1gtc18rp104s0r720j2m0bn5063z020x00fi00mp03dl07rr0e9x0lqx0uie13331bxb1j6y1pre1tjn1vzx1v2s1sqd1nbt1gz818m7107e0r5p0j3l0bnz064t022e00h100nz03fm07sj0eaw0lrj0ug413531bqi1jcz1pfx1tv41vlk1vj01sbt1nte1glr19290zvc0rjl0is80bzs05se02cc002t00x0030d081l0dw40m0p0u3l13dg1bia1jii1pe71tvm1vro1vef1spk1nlh1h4118rj10dx0r610j8w0bjy067d01ve00h000fo03eh07kd0eaw0lk00ujg12xi1byk1j4a1psl1tkq1w0a1v7s1sqe1nkn1gz818wi10630rel0izn0btx05xs025e007t00p8035r07u00e260lut0u9i13aj1blt1jjh1pcs1u0n1vjq1vm21sbv1nuu1gp01939101c0rjx0iyw0bz105ye02al007h00u0033407wr0dx40lub0u4c13671bk41jap1ph41tno1vux1v6v1ss31nfl1h6f18pd10i40r8c0jfd0bp806ep020m00n100ib03hd07j80e9x0lfv0uf612sl1bse1j181plo1tl31vu21vcb1slo1nrn1gv7193m102j0rlo0ixe0c1x05wu02e3006s00xb033107zu0dwq0lxl0u1u13ak1be71ji71p801tzd1vji1vl31sga1ntl1gvo190e107j0rf10j400bt9063j025d00do00q103ar07u30e5z0lrx0ucw13271bqe1j4c1pkk1tgm1vvz1v1d1srf1nd31h4u18pn10fm0r9m0jbp0bqd06at022a00kj00lq03hd07p30ebt0lne0ugp13031bqr1j6x1pfi1toj1vkr1vdw1sc51ns91goh195f10090rpi0ixv0c6205ws02gn004r00ye02zp080m0dts0lyw0u0h13c31bes1ji71pa01tw11vmj1vey1skc1nmt1h0t18us10dv0rbf0jbc0bqm06al021o00iz00jz03du07m10e7u0ljq0ufh12we1bve1j311pr91tj61w0o1v561sra1ngn1h0g18sg108p0rc70j4a0btp0647026g00ep00pz03bg07su0e5k0lr90uas135k1bm71jet1pd51txs1vkf1vli1sc51nvg1gni193p0zyc0rkk0ivv0c0u05wm02dv007700y9033e080u0dwi0lx70u1u137p1bfz1jbx1pcr1tpl1vrr1v9r1sr11niv1h6l18r710hp0r7t0jdm0bn306ce01yj00lc00hh03h107jv0eat0lgz0ugi12sp1btl1izq1pn71tiq1vwn1v9x1spl1nq71h011931106u0rkg0izm0byn05wn028u005b00re031x07uw0dx50luj0u3s139d1bgi1ji61p9g1u0g1vjv1vnl1sfw1nxk1gv7195i10790rk70j2w0bwx0604026c007k00oj032t07rp0dy30lqp0u6v133e1bn11j7q1pjg1tkq1vwj1v4u1sth1nfg1h7z18r510jl0ram0jfs0bqk06dq020m00l100hd03ex07i40e7g0lfc0uct12t41bpv1j2m1pij1tn11vqf1veh1sig1nu21gtt197i10480rrh0j0t0c7m05yr02h2005800wq02xw07w80dp70lsc0tu1135f1b8i1jeh1p601txe1vll1vkq1slq1nus1h2w192c10f30rh30jb30bum0694024j00gh00lq039z07m90e240lhu0u7w12sm1bnb1iyo1plg1tgh1vzq1v5e1svp1njb1h8b18vy10h70ref0jb40btj068k024400h500m703cp07o00e5t0lla0u9u12y51bk21j6g1pak1tqq1vj41vii1sdr1nxo1grv199z103x0rs40j0f0c6w05yb02gu005t00ya02zu07z40drw0lv00twk135r1b9x1jac1p5y1toj1vl91va51sn51nlw1h6u18x410ln0rfa0jj10bu406gi023400mb00ip03em07ib0e6a0ldw0ubp12p81bpx1iw01pl61tel1vw31v5c1sqm1nmf1h39191o10cs0rlu0j7j0c1m064u02b500bw00r1035f07r40dxh0lob0u27132o1beq1jcv1p821txg1vim1vmp1se21ny91gst197t105m0roh0j2y0c34061o02dg009900ux032z07vs0dvd0lry0u1b132t1bg91j731pdl1tla1vsx1v6e1ssc1ngz1h8818rm10kb0ra90jh40bql06g1021q00oa00j803ib07jl0e9v0ley0ude12q31bp81ixq1pif1ti71vs51vb41sm21nsq1gy11979107j0rqn0j2e0c5p05za02et006100v102zr07vk0drz0lse0twi135e1b9d1jdz1p4w1txl1vjg1vmw1sjv1nyx1h1z197s10es0rma0j9v0by3065v025z00bj00m6034r07n40dxz0lk40u5c12w71bm01j271pkk1tio1vzi1v6a1sxa1njs1hbq18wk10m30rf30jg60bt606c3021k00i200h603bh07hn0e450lfc0u9r12u01bms1j4i1pfh1tq41vo61vii1shv1nyk1gv519c1106q0rv20j2w0c9y05zy02ip005m00xm02x307vs0dn10lqk0tr4132p1b5u1jav1p4b1tt31vli1vgo1snv1ns91h7e192j10m10rjt0jjf0by406gq026j00ll00kr03bx07i20e170lbb0u5212le1bk21ist1pix1tdr1vyv1v6y1sx31noq1hal192z10j50rlk0jcg0c02068s029000f900oc038007n90dyp0liq0u1m12vn1bcv1j5t1p6d1tt01vis1vn01sgx1o2z1gwu19eg108t0rui0j430c77060l02fr006t00w502zy07wi0drr0ls70twh132a1ba01j611p6q1tkn1vne1v7n1sqm1nl21hau18xk10pc0rg20jlv0buf06ig022s00nr00hy03fv07h40e6u0lc10uap12mq1bn51itf1ph71td51vs21v671snu1npv1h2j197o10ea0rta0j9r0c8a065902fb009c00sj030c07qk0dqu0lml0tuy130a1b7w1jab1p391tvo1vh21vmk1sgp1o071gz719be10dz0rs90jaz0c5d067f02cu00bo00qs032607op0dsi0ljf0ty912uw1bf61j1n1pfd1tiw1vwg1v6k1sw61nj61hbv18va10nj0rea0jjb0btm06gk022u00mq00i203ev07gm0e540lbj0u8i12o11bl21iy11pf71tku1vpu1vfb1sku1nx91gxs19ba107y0ru50j390c9b060m02iu007400yc02z107w90do90lpx0tqc130n1b2r1j8l1p051tsj1vhr1viu1slk1nwq1h6i197o10l40rnk0jh20bzx06cv027700h800li038207jn0dy60ldh0u2h12n51bh91it01pgb1tcp1vxx1v5t1syv1noa1hey193c10ov0rll0jhh0by706be024n00fh00i8037807h00dyi0ldk0u3112rw1bfk1j2v1p951tqh1vkv1vlp1siq1o3v1gyx19ho10bb0rz40j6a0cbd061102hj004d00us02uu07sy0dlg0lom0tqn130u1b5r1j7o1p481toi1vlq1vc41spi1npf1hau192210qv0rks0joe0byx06kk026000nq00im03cp07ep0e0z0l7i0u4812hy1bis1iq71pgx1tc41vvq1v6g1stm1nq51h8m197p10k60rte0jfg0c8j06as02f800e100qy033307me0dqu0lfp0tsh12s71b4p1j3p1p1d1tt01vhl1vos1sj51o5r1h1q19hr10f70rxs0jas0c9w066e02gt00a800ua030107r30dou0lk20tse12tv1b7r1j061p8d1tim1vsa1v8n1swk1nnl1hg0190f10sy0ri60jnq0bve06j3022v00nt00h803fa07fd0e570l9j0u7z12ki1bju1iso1pe41tes1vq61vaq1snq1nvz1h3e19dj10f00rxy0j9v0cc5065402j7009200w702z407st0dnp0lmi0tpo12xw1b1k1j6g1oxr1tre1veb1vjf1sia1nzl1h4u19d610ls0rv10jj40c7m06e902db00ga00ox034g07kn0dsv0ldj0tx312nm1bd01iu11pdf1tdb1vwc1v5e1syp1nmv1hg9192110s70rll0jmy0bzi06hv026300l500ia03an07ek0dzg0l8t0u2o12m91bfu1iy31pb51tn81vno1vjv1sl31o2v1h0319h610bi0rzd0j6n0ccx062c02k5006e00xi02wj07ui0dlf0loa0to812z91b1s1j6x1p0j1tqc1vjb1vg71so71nu21h9s195p10p00rmm0jlo0bzs06hs027900lr00kw03bi07hn0e000l9x0u2m12ip1bgg1ip61pfa1tan1vwq1v5w1sxl1nqb1hea197r10pf0rrw0jio0c4o06br029t00e500le033q07hs0dsr0lc80tvg12pg1b7l1j101p381tqu1viv1vou1skw1o8n1h3w19mj10gx0s2k0jat0cco063o02go004w00s102ti07ok0diu0lj00to012va1b4y1j3k1p6c1tmi1vqe1vcf1svy1nro1hhl194t10w20rm90jr00by706km023600m800eg03ao07ad0dza0l420u3612g71bi21iqc1pg21tdu1vum1va01ssz1nvf1h9119e010l10rza0jfs0cdc06a002it00bo00st02yj07m50dkb0ldw0tl312pv1axu1j1i1owf1tr61vfc1vnf1sjz1o5h1h5z19jf10mc0s160jje0cdf06e102ic00et00s8030s07lb0dmc0lbf0to512k11b3n1ir41p6e1tcu1vtv1v811t151nr41hlg195u10xs0rnv0jrn0c0906li025s00nr00h203c007bw0dz00l3w0u0612ex1bc91iph1p8e1tfl1vni1vfp1soh1o3e1h6919l010i70s3s0jbw0cfu065a02l0007e00wo02wc07sk0dkb0llf0tlm12vf1ax31j2t1ou81tna1vcz1vfv1sjz1nxj1h9919cq10rk0rv90jp00c7l06jh02cj00kk00nd037r07i30duv0l9e0tx412hn1bb31in41paf1t7b1vt71v1z1swh1nn81hgj197010v60rtj0jqm0c7806jq02b800jz00k8036i07dq0dt70l6d0tv312jb1b7o1ivh1p3p1tm41vit1vl31sjy1o6b1h2o19mi10gq0s5e0jcl0chu066u02mk007w00wl02uj07qg0dh00lid0tjn12ts1azk1j341p1e1tnr1vm91vek1ssf1ntc1heh195p10tq0rn80jq60c0b06lk026r00o600ip03c807do0dz80l510u1412el1bf71in91pel1tay1vvx1v7x1swi1ntj1hcx19bg10nr0rvr0jhh0c9h06br02fn00eh00qt032i07kx0doo0lcf0tol12nf1azk1iyf1owr1tp31vfe1vo31ski1o8v1h6h19nv10lp0s4l0jgp0cev069g02if009m00sg02wd07mq0djb0leb0tm412nt1b1p1iux1p431tg51vry1vb41t171nue1hnu199011160rpv0ju50bzz06lj022v00lc00cg038i07780dwe0l0k0tzw12dc1bel1ioz1pcq1tf21vsn1veu1stp1o341hbp19m310nm0s5g0jgh0cgm067z02jg007d00s802tr07m50dgn0lf20tir12re1aw51j2f1ov71tql1ves1vlj1slb1o3w1h9y19ja10s70s1v0jpj0cdl06j002gw00hx00p2032707gt0dmq0l6a0tob12ew1b451imn1p7f1t9l1vuu1v691t1p1nri1hms199q110z0ruo0jvr0c7a06o602ae00na00i0037x079e0ds80kzj0tsc12ay1b501iny1p3e1thm1vls1vkz1spt1oa51h9m19rv10mb0s9w0jfw0cko068902o1008500wz02tx07po0dez0lg40tfg12q51at81izl1oum1tmh1vh91vgz1sqv1nzj1hgq19ea10xv0rvi0jth0c6506mb029u00me00jv038w07dx0dv70l4k0twp12cw1bac1ijq1pa21t6e1vtm1v461sxt1ns31hia19cz10wc0rz50jqr0ccb06j802fv00it00nv033y07fo0dop0l6c0tog12hk1azi1isy1ovy1tk11vdm1vkq1sis1o8g1h6019r110na0sax0jk20cmj06cv02oz00az00w302ui07n50del0lcq0tg012mf1avp1iuz1oyr1th01vmy1vbr1swz1nuq1hld199p11170rs20jwt0c3x06pw027m00pf00g603ai078a0dvg0kyj0tws12961bbe1ikd1pbl1tb11vtt1vb21svt1nz71hdq19ig10pg0s2s0jj00cfg06bz02jr00cj00t202yt07lz0dk10lcq0tje12mz1aud1ixn1osm1tnw1vct1vm31sjr1o6e1h7w19m310p40s420jlo0cff06f802jb00f400sl030f07l50dla0laa0tlz12hn1b071ins1p2o1t9s1vrh1v6u1t181nsl1hop19aj113h0ru10jx90c4n06o6026h00mk00e6037p076l0dt90kxt0tuj129e1b7t1ilj1p631te51vo61vhs1ssl1o8t1hd219se10pp0say0ji20cki068802lk005v00sm02qj07ky0dc20lcp0tdz12p51at01j131oum1tpn1vge1vks1sp71o3v1hfi19jb10xi0s0q0jt90cal06ky02ce00in00jw032k07bw0dnj0l230tpu12bq1b651ikk1p9g1t8k1vw11v6b1t1u1nsy1hmw19cw111a0ryv0jvy0cbr06nz02eb00lw00k8034g079b0dmp0kxx0tlk12911ay01ims1oxb1thr1vht1vmf1so61oce1haf19v310pm0sea0jks0cp906cs02r300a800x202sj07me0dak0la20t9s12iu1aoe1isr1oso1ti41vk21vgr1sxr1o231hol19gy114f0rx80jyd0c6n06po028r00o000gm038a07880dsh0kx90tsu12601b6u1ifp1p851t6h1vtv1v8o1t0a1nzt1hlr19lc10yl0s5q0jqm0cg606gm02hi00ei00ol02zc07gn0dk50l790tjc12hl1ato1ise1oqy1tjp1vay1vkw1sj41o9h1h9e19sx10se0scq0jp30cn806go02oa00da00ua02vq07kl0df50l980tft12hd1auq1ioi1oxr1taq1vn71v7l1syy1nu21hpq19dj117t0ryj0k3i0c9h06u6029z00q800er037z07400dqr0ksz0tr812421b5u1igy1p6k1tac1vqf1vea1sv71o5y1hg119r710tj0sbu0jn50cmy06e202o800b400tv02to07jj0dcb0l8o0tbs12k41apu1ixf1orv1tp11vep1vn71snr1o7h1hdj19mz10vb0s4o0jrl0cfa06k902hy00im00pm032307gj0dle0l4l0tll12c21b0l1ijq1p4k1t7x1vu31v6v1t3f1nu61hqd19d9114o0rxq0jyk0c9i06q802bw00ob00ia037a077t0dpp0kw00to3125s1azp1iib1oyl1td91vjf1vju1sqz1ocw1hea19xn10sx0sgt0jm60cq206bz02q0008400v602qe07ky0d9a0l9r0t9212jn1an91iud1oqk1tkf1vha1vjt1sve1o6b1ho219mg115j0s2w0jzh0cas06ox02ac00ki00fv032s076f0dmq0kvz0tom125y1b4v1ige1p8e1t6y1vvw1v8a1t3g1nyr1hq519ks114e0s670jx10cgm06m702gb00hr00kn02zm079y0die0kzc0thi12an1atl1io41osu1tif1vdz1vm81sls1oc91hau19wg10t60sh70jq20cs906ho02st00d700ww02t707kb0d9i0l6c0t8012dx1amy1in71os71tco1vku1vc81szh1nzl1hrv19hs119r0s120k4y0cb706vl02bk00rf00g10383073w0dox0kqd0tnb11yu1b181ias1p3w1t5h1vrm1vbw1t041o671hn219sq11070scq0jrv0cm906h502me00dj00rk02vt07gw0ddt0l560tbr12f51ani1irk1onv1tkk1vb41vmk1sm31ob41he619tq10xa0sc90jsu0cld06jb02lk00fe00rf02xk07hj0dgj0l5h0tgl12co1av01ijf1oyc1t6g1vot1v5j1t181nu91hs419f6119m0s0y0k4t0ccb06ve02ck00qu00g70376073t0dob0kr90tmz12141azq1idp1ozd1t861vk41vep1srn1o9e1hfx19wy10w50sis0jqo0ctf06gn02ss00bb00vp02r207iq0d7h0l5u0t5w12fw1ajy1isn1onn1tl01veb1vlk1sro1o8b1hka19ox112v0s6g0jyd0cfk06p102fp00ko00km031i079a0dj50kwk0tj9124y1azi1if41p521t6c1vvo1v811t5b1nxp1hsj19ib116k0s2y0jzc0cdn06p902ea00ln00jc033p078d0dlm0kw90tj9125q1au91iim1oti1teb1vfn1vl21soj1odw1hde19yv10tx0sip0jol0csf06ew02sa00af00wm02r507kq0d820l7b0t6912f01ak21iof1oof1teo1vhj1vfs1sy51o4p1hss19na11bg0s500k550ccd06t702a700my00di0334071t0dl10kpm0tld11z41b111ib01p521t4x1vub1vaw1t4i1o5p1ht619td11780sdu0jy50cm206l302j900ea00lc02u507930dbl0kxx0tax12a81aoq1iph1oqb1tkt1vdk1vos1snu1of41hfk19zc10yw0six0juh0crr06jp02py00d400sh02rw07ff0d8b0l1y0t7y12ac1aod1ika1ouy1tad1voj1var1t351nz81hvc19j711dl0s4d0k990cfd06zl02en00ti00g80373070t0dl20kl90thv11tm1avk1i7a1oyx1t4r1vo71veh1syl1obd1hnh19zi112l0skt0jvp0cuq06kr02tf00eq00v902t407gi0d7a0l180t2y129k1aez1imp1oip1tik1vbo1vo71srx1oez1hmj19xe115h0sef0jzn0clr06ok02k800iw00o402yt07bz0dfg0kxz0te4124m1asx1id01oy81t3i1vre1v6p1t5r1nz01hxh19lm11e50s6q0k720cg306v402ed00p400hb035d07540dmc0ks50tjn120o1aud1ick1ot21t7o1veu1vfp1sor1oc41hfv1a1210yf0sno0jtv0cy006jc02w900cp00xw02qy07jq0d650l5e0t3j12de1agt1inx1okg1tf21vcn1vgc1ssx1o5z1hp919qa11au0sa20k6x0ciq06vy02gh00os00i6032k07430di10kpr0th611y21ax91i9l1p2x1t3c1vu51v8f1t591o1u1hua19p8119g0sb10k230cl106qk02jg00ke00lg02zf077o0dew0kuc0tc812551ap31iki1oqn1thh1veg1vnv1sok1ofo1hem19zt10w50sja0jr80css06hf02s800c900vx02rz07j50d7w0l4u0t5u12bw1aki1ilc1oqc1tbx1vkr1vde1t1i1o2l1hvd19lk11dc0s4f0k7k0cdj06wy02cc00r100es035p070s0dkz0km00tih11ts1awa1i611p011t2f1vqh1vc01t2g1oa01hsn19z8117k0sjy0jyj0crl06kv02ns00cy00oh02r807af0d6q0kx90t4a127p1ahc1imc1okj1tje1vcf1vqg1srs1oir1hmc1a2j115j0sjz0jz00cq006lp02lq00d200mq02qq07960d700kw20t7e12551aoy1ig11owo1t7m1vrn1vag1t7j1o1v1i0i19nr11i90s8l0kbg0ch406yf02dc00ps00d9032r06y40dhe0kjm0ter11sx1asg1i7k1ovb1t5s1vka1vg61sv81odt1hlo1a33112z0spq0jxh0czt06m202wz00dw00wf02pr07fd0d220kyl0sx812671aac1ijh1og31tfm1vbf1vln1su81odz1hrn19ye11co0sgp0k7e0cnr06v902k900mx00kp02z6074u0dcg0ko80t9d11ud1aoo1i541owc1t0a1vsb1v8b1t8w1o4f1i1v19sz11i50sdw0k9c0clm06ve02hp00n500i3030s07340df50koh0tbd11xs1an71ic71ooa1ta61vd91vk91sq21oh91hix1a5p111y0sqx0jwf0czc06k802vx00c500wm02pi07hw0d400l2u0t11129x1aet1ijm1ojs1tau1ve91vdm1sx31o5e1huu19r511go0sby0kct0cl4071i02hv00sm00h0033s07000dgm0kjh0tdl11qn1asd1i2n1oxr1syo1vpv1v7r1t3d1o671hvn19xf11d50skx0k6b0cuf06te02qe00ka00ov02vn077k0d7y0krp0t3d12191afx1igy1ojj1tg91vbq1vpk1sqi1oje1hk71a4d113r0snm0jyp0cvp06n102sp00f000tf02rj07du0d560kxv0t2l124u1aik1ifj1oqs1t8a1vnt1vc61t631o3n1i0h19oc11ig0s840kbz0cgu070102eb00sq00fg036f070g0dkf0kkf0tg111qz1as81i3d1ov91t191vlx1vcr1syp1occ1hq21a2r116p0sot0jze0cxp06mq02ud00eq00ue02rr07ei0d520kyk0t0512621abm1iis1of41tfg1v9g1vnc1ssi1oht1hqs1a3q11ca0slu0k5x0cr306ro02lf00hm00kr02tj075e0d7z0kqh0t6q11y81ani1i971ovn1t301vs61v9l1ta81o581i4w19tm11mj0sed0kdy0cl806ym02fb00o000dd02zj06x30ddg0kiu0tb811tu1apv1ia81ot21t9b1vi61vju1su51oho1hm61a78114p0stc0jyv0d1x06lw02xc00c500vn02n307ef0czh0ky40svs126b1aao1ijg1ohv1teo1ve71vjs1sxj1obq1hv419wl11gr0sgd0kcs0cov071602kz00rc00iw030q07010dbg0khg0t7111na1amf1hzo1ouw1sxt1vrs1v941t931o881i2o19yo11jl0skn0kb70cst06x002nw00n600lp02xv073g0d8z0km40t2v11u91aea1i9r1ohx1tba1vbw1vp11st71onc1ho71aam11790stn0k060czr06m002uj00c700ts02ny07dn0d120kxd0sxr12411aco1iel1ok71t7r1vi21vd91t3l1o7d1i2519u011ms0sdz0kgf0cl2072c02fr00s600ec033o06xv0dgv0kha0tcr11nn1apt1hzh1otw1swk1vlq1v7t1t081o961hua1a2r11dh0sra0k760d0j06th02v700ir00ry02si07930d3g0kru0sxs11zx1a9l1ieb1ode1td21v7d1vms1spp1oix1ho71a6x11bb0srd0k6q0cy506t202sa00hu00pi02r207700d2e0kpk0sza11wn1ag91i8i1oq61t3j1vp71vah1t981o591i4t19so11nk0sdn0kgm0clq072u02gv00so00er033406wp0del0kfl0ta011o31anz1i3o1osh1t3v1vju1vgl1sxc1ogc1hp71a6d116c0ss70jzg0d0y06ml02x000dq00vz02pa07en0d140kxc0svg12441a7x1igu1odt1tdv1vaj1vlt1svd1ogb1hud1a2011g30skk0kao0cr406xf02lx00my00jt02wt"};
+  var JQ_LIST=null;
+  function jqList(){
+    if(JQ_LIST) return JQ_LIST;
+    var out=[], t=JQT.t0, ix=JQT.i0; out.push([JQ[ix],t]);
+    for(var p=0;p<JQT.d.length;p+=4){ t+=parseInt(JQT.d.substr(p,4),36)+JQT.base; ix=(ix+1)%24; out.push([JQ[ix],t]); }
+    return (JQ_LIST=out);
+  }
+  function fold(p){return p===5?2:p;}
+  function rpos(p){return RING.indexOf(fold(p));}
+  function mod(a,n){return ((a%n)+n)%n;}
+  function pad(n){return (n<10?"0":"")+n;}
+  function fmtT(t){var d=new Date(t*1000);return d.getUTCFullYear()+"."+pad(d.getUTCMonth()+1)+"."+pad(d.getUTCDate())+" "+pad(d.getUTCHours())+":"+pad(d.getUTCMinutes());}
+  function calendar(Y,M,D,h,mi){
+    var lun=Solar.fromYmdHms(Y,M,D,h,mi,0).getLunar();
+    var ec=lun.getEightChar(); ec.setSect(1);
+    var pillars=[ec.getYear(),ec.getMonth(),ec.getDay(),ec.getTime()];
+    var Y2=Y,M2=M,D2=D;
+    if(h===23){var nd=new Date(Date.UTC(Y,M-1,D)+86400000);Y2=nd.getUTCFullYear();M2=nd.getUTCMonth()+1;D2=nd.getUTCDate();}
+    var l2=Solar.fromYmdHms(Y2,M2,D2,12,0,0).getLunar();
+    var dt=Date.UTC(Y,M-1,D,h,mi,0)/1000;
+    var L=jqList(), prev=null, nxt=null, sol=null, zq=null;
+    for(var i=0;i<L.length;i++){
+      if(L[i][1]<=dt){prev=L[i]; if(L[i][0]==="冬至"||L[i][0]==="夏至") sol=L[i]; if(YUEJIANG[L[i][0]]) zq=L[i];}
+      else {nxt=L[i];break;}
+    }
+    if(!prev||!nxt||!sol||!zq) throw new Error("超出支持范围（1900–2100）");
+    var lm=lun.getMonth();
+    return {pillars:pillars, juParts:[l2.getYearZhi(),Math.abs(l2.getMonth()),l2.getDay(),pillars[3].charAt(1)],
+      prev:[prev[0],fmtT(prev[1])], next:[nxt[0],fmtT(nxt[1])], yy:sol[0]==="冬至"?"阳":"阴", yuejiang:YUEJIANG[zq[0]],
+      lunarDisp:(lm<0?"闰":"")+LunarUtil.MONTH[Math.abs(lm)]+"月"+lun.getDayInChinese()};
+  }
+  function dingJu(yz,lm,ld,hz){var total=(ZHI.indexOf(yz)+1)+lm+ld+(ZHI.indexOf(hz)+1);var r=total%9;return [r===0?9:r,total];}
+  function layout(start,num,yy){
+    var i0=YI.indexOf(start), raw={};
+    for(var k=0;k<9;k++){var n=mod(num-1+(yy==="阳"?k:-k),9)+1; raw[n]=YI.charAt((i0+k)%9);}
+    var out={}; RING.forEach(function(p){out[p]=[raw[p]];}); out[2]=[raw[2],raw[5]];
+    return [out,raw];
+  }
+  function findNum(raw,v){for(var k=1;k<=9;k++) if(raw[k]===v) return k;}
+  function build(yy,ju,hgz){
+    var hg=hgz.charAt(0), hz=hgz.charAt(1);
+    var L=layout("戊",ju,yy), di=L[0], diRaw=L[1];
+    var idx; for(var i=0;i<60;i++) if(GAN.charAt(i%10)===hg&&ZHI.charAt(i%12)===hz){idx=i;break;}
+    var xun=Math.floor(idx/10), xunYi=XUN_YI.charAt(xun);
+    var xunName="甲"+ZHI.charAt(mod(12-2*xun,12))+xunYi, n=idx%10;
+    var kong=[ZHI.charAt(mod(10-2*xun,12)),ZHI.charAt(mod(11-2*xun,12))];
+    var xunNum=findNum(diRaw,xunYi);
+    var shigan=hg==="甲"?xunYi:hg, tgt=fold(findNum(diRaw,shigan));
+    var k=rpos(tgt)-rpos(xunNum), tian={}, star={};
+    RING.forEach(function(p,i){var q=RING[mod(i+k,8)]; tian[q]=di[p]; star[q]=STAR0[p];});
+    var zsP=fold(mod(xunNum-1+(yy==="阳"?n:-n),9)+1);
+    var kd=rpos(zsP)-rpos(fold(xunNum)), door={};
+    RING.forEach(function(p,i){door[RING[mod(i+kd,8)]]=DOOR0[p];});
+    var god={}; GODS.forEach(function(g,j){god[RING[mod(rpos(tgt)+(yy==="阳"?j:-j),8)]]=g;});
+    var yin;
+    if(hg!=="甲"){var ky=rpos(zsP)-rpos(tgt); yin={}; RING.forEach(function(p,i){yin[RING[mod(i+ky,8)]]=di[p];});}
+    else yin=layout(xunYi,5,yy)[0];
+    var ma=MA[hz], kp={}; kong.forEach(function(z){kp[ZHI_PALACE[z]]=1;});
+    return {yy:yy,ju:ju,xun:xunName,zhifu:"天"+STAR0[fold(xunNum)],zhishi:DOOR0[fold(xunNum)]+"门",
+      kong:kong.join(""),kongP:kp,ma:ma,maP:ZHI_PALACE[ma],di:di,tian:tian,star:star,door:door,god:god,yin:yin};
+  }
+  function harm(s,p){var x=XING[s]===p,m=MU[s]===p;return x&&m?"刑+墓":x?"击刑":m?"入墓":"";}
+  function harms(ch){
+    var res=[];
+    RING.forEach(function(p){
+      ["tian","di"].forEach(function(layer){ch[layer][p].forEach(function(s){var h=harm(s,p); if(h) res.push(PALACE[p]+(layer==="tian"?"天":"地")+s+":"+h);});});
+      if(POHAI[ch.door[p]].indexOf(p)>=0) res.push(PALACE[p]+ch.door[p]+"门:门迫");
+    });
+    return res;
+  }
+  /* manual: 可选 {yy:"阳"/"阴", ju:1-9}，自选局数时跳过定局 */
+  function paipan(Y,M,D,h,mi,manual){
+    var c=calendar(Y,M,D,h,mi), dj=dingJu(c.juParts[0],c.juParts[1],c.juParts[2],c.juParts[3]);
+    var yy=c.yy, ju=dj[0];
+    if(manual&&manual.ju){yy=manual.yy;ju=manual.ju;}
+    var ch=build(yy,ju,c.pillars[3]); ch.c=c; ch.total=dj[1]; ch.manual=!!(manual&&manual.ju); ch.harms=harms(ch);
+    return ch;
+  }
+  return {paipan:paipan,build:build,harm:harm,PALACE:PALACE,RING:RING,GOD_FULL:GOD_FULL,POHAI:POHAI,ZHI:ZHI,STAR0:STAR0};
+})();
+
+(function(){
+  var $=function(id){return document.getElementById(id);};
+  var RKEY='qm-records-v1';
+  function pad(n){return (n<10?'0':'')+n;}
+  function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+  function nowVal(){var d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'T'+pad(d.getHours())+':'+pad(d.getMinutes());}
+  function parseT(v){var m=/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/.exec(v||'');return m?m.slice(1).map(Number):null;}
+  function loadRec(){try{return JSON.parse(localStorage.getItem(RKEY)||'[]');}catch(e){return [];}}
+  function saveRec(list){try{localStorage.setItem(RKEY,JSON.stringify(list.slice(0,100)));}catch(e){}}
+  var CLS={'入墓':'h-mu','击刑':'h-xing','刑+墓':'h-xm'};
+  function ganHtml(arr,p){return arr.map(function(s){var h=QM.harm(s,p);return h?'<span class="'+CLS[h]+'">'+s+'</span>':s;}).join('');}
+  function render(t,matter,ch){
+    var c=ch.c, P=QM.PALACE;
+    var date=t[0]+'年'+pad(t[1])+'月'+pad(t[2])+'日 '+pad(t[3])+'时'+pad(t[4])+'分('+c.lunarDisp+')';
+    var pz=c.pillars.map(function(g){return '<td class="pz">'+g.charAt(0)+'<br>'+g.charAt(1)+'</td>';}).join('');
+    var h='<table class="qm-hd">'+
+      '<tr><td class="l">事项</td><td class="v" colspan="4">'+(matter?esc(matter):'<span style="color:#bbb">✎</span>')+'</td></tr>'+
+      '<tr><td class="l">日期</td><td class="v" colspan="4">'+date+'</td></tr>'+
+      '<tr><td class="l">节气</td><td class="v" colspan="4">'+c.prev[0]+c.prev[1]+' ~ '+c.next[0]+c.next[1]+'</td></tr>'+
+      '<tr><td class="l">类型</td><td class="v" colspan="4">时盘· '+ch.yy+'遁'+ch.ju+'局【月将'+c.yuejiang+'】'+(ch.manual?'<span style="color:#999">（自选）</span>':'')+'</td></tr>'+
+      '<tr><td class="g">旬首</td><td class="g">值符</td><td class="g">值使</td><td class="g">马星</td><td class="g">空亡</td></tr>'+
+      '<tr><td>'+ch.xun+'</td><td>'+ch.zhifu+'</td><td>'+ch.zhishi+'</td><td>'+ch.ma+'</td><td>'+ch.kong+'</td></tr>'+
+      '<tr><td class="l">四柱</td><td class="g">年柱</td><td class="g">月柱</td><td class="g">日柱</td><td class="g">时柱</td></tr>'+
+      '<tr><td></td>'+pz+'</tr></table>';
+    var yi=function(p){return ch.yin[p].join('');};
+    var ma=function(p){return ch.maP===p?'<span class="qm-ma">马</span>':'';};
+    var cell=function(p){
+      if(p===5) return '<div class="qm-cell mid"></div>';
+      var po=QM.POHAI[ch.door[p]].indexOf(p)>=0;
+      return '<div class="qm-cell" data-p="'+P[p]+'"><span class="god">'+ch.god[p]+'</span><span class="kong">'+(ch.kongP[p]?'○':'')+'</span>'+
+        '<span class="gan">'+ganHtml(ch.tian[p],p)+'</span><span class="sx">'+ch.star[p]+'</span>'+
+        '<span class="gan">'+ganHtml(ch.di[p],p)+'</span><span class="mn'+(po?' po':'')+'">'+ch.door[p]+'</span></div>';
+    };
+    var g='<div class="qm-pan">'+
+      '<div>'+ma(4)+'</div><div></div><div class="qm-yin">'+yi(9)+'</div><div></div><div>'+ma(2)+'</div>'+
+      '<div class="qm-yin">'+yi(4)+'</div>'+cell(4)+cell(9)+cell(2)+'<div class="qm-yin">'+yi(2)+'</div>'+
+      '<div class="qm-yin">'+yi(3)+'</div>'+cell(3)+cell(5)+cell(7)+'<div class="qm-yin">'+yi(7)+'</div>'+
+      '<div class="qm-yin">'+yi(8)+'</div>'+cell(8)+cell(1)+cell(6)+'<div class="qm-yin">'+yi(6)+'</div>'+
+      '<div>'+ma(8)+'</div><div></div><div class="qm-yin">'+yi(1)+'</div><div></div><div>'+ma(6)+'</div></div>';
+    g+='<div class="qm-legend">颜色说明：<b class="h-mu">入墓</b>、<b class="h-xing">击刑</b>、<b class="h-po">门迫</b>、<b class="h-xm">刑+墓</b></div>';
+    g+='<div class="qm-note">北京时间；23 点后定局与日柱按次日。</div>';
+    $('qm-out').innerHTML=h+g; $('qm-out').classList.add('show');
+  }
+  function run(t,matter,manualVal,save){
+    $('qm-msg').textContent='';
+    if(!t){$('qm-msg').textContent='请填写排盘时间';return;}
+    if(t[0]<1901||t[0]>2099){$('qm-msg').textContent='仅支持 1901–2099 年';return;}
+    var manual=null; if(manualVal){manual={yy:manualVal.charAt(0),ju:Number(manualVal.charAt(1))};}
+    var ch;
+    try{ch=QM.paipan(t[0],t[1],t[2],t[3],t[4],manual);}catch(e){$('qm-msg').textContent='排盘失败：'+e.message;return;}
+    render(t,matter,ch);
+    $('qm-rec').classList.remove('show');
+    if(save){
+      var list=loadRec();
+      list.unshift({t:t,m:matter||'',j:manualVal||'',s:ch.yy+'遁'+ch.ju+'局',at:Date.now()});
+      saveRec(list);
+    }
+    setTimeout(function(){$('qm-out').scrollIntoView({behavior:'smooth',block:'start'});},30);
+  }
+  function showRec(){
+    var box=$('qm-rec');
+    if(box.classList.contains('show')){box.classList.remove('show');return;}
+    var list=loadRec();
+    if(!list.length){box.innerHTML='<div class="empty">暂无排盘记录</div>';}
+    else{
+      box.innerHTML=list.map(function(r,i){var t=r.t;return '<div class="it" data-i="'+i+'"><span class="t">'+(r.m?esc(r.m):'（未填事项）')+'</span><span class="s">'+t[0]+'-'+pad(t[1])+'-'+pad(t[2])+' '+pad(t[3])+':'+pad(t[4])+' · '+esc(r.s)+'</span></div>';}).join('')+'<button type="button" class="clr" id="qm-clr">清空记录</button>';
+    }
+    box.classList.add('show');
+  }
+  function init(){
+    if(!$('view-qm')) return;
+    var sel=$('qm-ju'), o='<option value="">自动（按时间定局）</option>';
+    ['阳','阴'].forEach(function(y){for(var i=1;i<=9;i++) o+='<option value="'+y+i+'">'+y+'遁'+i+'局</option>';});
+    sel.innerHTML=o;
+    $('qm-time').value=nowVal();
+    $('qm-now').addEventListener('click',function(){$('qm-time').value=nowVal();});
+    $('qm-go').addEventListener('click',function(){run(parseT($('qm-time').value),$('qm-matter').value.trim(),sel.value,true);});
+    $('qm-recbtn').addEventListener('click',showRec);
+    $('qm-rec').addEventListener('click',function(e){
+      if(e.target.id==='qm-clr'){if(confirm('清空全部排盘记录？')){saveRec([]);$('qm-rec').classList.remove('show');}return;}
+      var it=e.target.closest('.it'); if(!it) return;
+      var r=loadRec()[Number(it.getAttribute('data-i'))]; if(!r) return;
+      $('qm-matter').value=r.m; sel.value=r.j||'';
+      $('qm-time').value=r.t[0]+'-'+pad(r.t[1])+'-'+pad(r.t[2])+'T'+pad(r.t[3])+':'+pad(r.t[4]);
+      run(r.t,r.m,r.j,false);
+    });
+    var nav=document.querySelector('[data-go="qm"]');
+    if(nav) nav.addEventListener('click',function(){ if(!$('qm-out').classList.contains('show')) $('qm-time').value=nowVal(); });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
 })();
 
 </script>
