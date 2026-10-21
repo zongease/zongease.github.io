@@ -1073,6 +1073,8 @@ body {
 #view-qm table.qm-hd td{border:1px solid #e3e3e3;padding:5px 4px;white-space:nowrap;text-align:center;vertical-align:middle}
 #view-qm table.qm-hd td.l{color:#b8860b;font-weight:600;white-space:nowrap;width:44px}
 #view-qm table.qm-hd td.v{text-align:left;white-space:normal}
+#view-qm .qm-pen{border:none;background:none;color:#12c2b5;font-size:1rem;cursor:pointer;padding:0 4px;margin-left:4px;line-height:1}
+#view-qm .qm-mtin{width:100%;border:none;border-bottom:1px solid #12c2b5;font-size:.9rem;padding:2px 0;font-family:inherit;outline:none;background:transparent}
 #view-qm table.qm-hd td.g{color:#b8860b}
 #view-qm table.qm-hd .pz{font-weight:700;font-size:1rem;line-height:1.35}
 #view-qm .qm-pan{display:grid;grid-template-columns:minmax(28px,auto) repeat(3,1fr) minmax(28px,auto);grid-template-rows:26px repeat(3,auto) 26px;align-items:center;justify-items:center;max-width:400px;margin:0 auto}
@@ -3517,12 +3519,14 @@ var QM = (function(){
   function saveRec(list){try{localStorage.setItem(RKEY,JSON.stringify(list.slice(0,100)));}catch(e){}}
   var CLS={'入墓':'h-mu','击刑':'h-xing','刑+墓':'h-xm'};
   function ganHtml(arr,p){return arr.map(function(s){var h=QM.harm(s,p);return h?'<span class="'+CLS[h]+'">'+s+'</span>':s;}).join('');}
+  var cur=null;
+  function mtHtml(m){return (m?'<span class="qm-mt">'+esc(m)+'</span>':'')+'<button type="button" class="qm-pen" title="编辑事项" aria-label="编辑事项">✎</button>';}
   function render(t,matter,ch){
     var c=ch.c, P=QM.PALACE;
     var date=t[0]+'年'+pad(t[1])+'月'+pad(t[2])+'日 '+pad(t[3])+'时'+pad(t[4])+'分('+c.lunarDisp+')';
     var pz=c.pillars.map(function(g){return '<td class="pz">'+g.charAt(0)+'<br>'+g.charAt(1)+'</td>';}).join('');
     var h='<table class="qm-hd">'+
-      '<tr><td class="l">事项</td><td class="v" colspan="4">'+(matter?esc(matter):'<span style="color:#bbb">✎</span>')+'</td></tr>'+
+      '<tr><td class="l">事项</td><td class="v qm-mtd" colspan="4">'+mtHtml(matter)+'</td></tr>'+
       '<tr><td class="l">日期</td><td class="v" colspan="4">'+date+'</td></tr>'+
       '<tr><td class="l">节气</td><td class="v" colspan="4">'+c.prev[0]+c.prev[1]+' ~ '+c.next[0]+c.next[1]+'</td></tr>'+
       '<tr><td class="l">类型</td><td class="v" colspan="4">时盘· '+ch.yy+'遁'+ch.ju+'局【月将'+c.yuejiang+'】'+(ch.manual?'<span style="color:#999">（自选）</span>':'')+'</td></tr>'+
@@ -3549,7 +3553,7 @@ var QM = (function(){
     g+='<div class="qm-note">北京时间；23 点后定局与日柱按次日。</div>';
     $('qm-out').innerHTML=h+g; $('qm-out').classList.add('show');
   }
-  function run(t,matter,manualVal,save){
+  function run(t,matter,manualVal,save,recAt){
     $('qm-msg').textContent='';
     if(!t){$('qm-msg').textContent='请填写排盘时间';return;}
     if(t[0]<1901||t[0]>2099){$('qm-msg').textContent='仅支持 1901–2099 年';return;}
@@ -3560,9 +3564,11 @@ var QM = (function(){
     $('qm-rec').classList.remove('show');
     if(save){
       var list=loadRec();
-      list.unshift({t:t,m:matter||'',j:manualVal||'',s:ch.yy+'遁'+ch.ju+'局',at:Date.now()});
+      recAt=Date.now();
+      list.unshift({t:t,m:matter||'',j:manualVal||'',s:ch.yy+'遁'+ch.ju+'局',at:recAt});
       saveRec(list);
     }
+    cur={t:t,m:matter||'',j:manualVal||'',s:ch.yy+'遁'+ch.ju+'局',at:recAt||null};
     setTimeout(function(){$('qm-out').scrollIntoView({behavior:'smooth',block:'start'});},30);
   }
   function showRec(){
@@ -3590,7 +3596,27 @@ var QM = (function(){
       var r=loadRec()[Number(it.getAttribute('data-i'))]; if(!r) return;
       $('qm-matter').value=r.m; sel.value=r.j||'';
       $('qm-time').value=r.t[0]+'-'+pad(r.t[1])+'-'+pad(r.t[2])+'T'+pad(r.t[3])+':'+pad(r.t[4]);
-      run(r.t,r.m,r.j,false);
+      run(r.t,r.m,r.j,false,r.at);
+    });
+    $('qm-out').addEventListener('click',function(e){
+      if(!e.target.closest('.qm-pen')||!cur) return;
+      var td=$('qm-out').querySelector('.qm-mtd'); if(!td||td.querySelector('input')) return;
+      td.innerHTML='<input type="text" class="qm-mtin" maxlength="60" placeholder="输入事项">';
+      var inp=td.querySelector('input'), done=false; inp.value=cur.m; inp.focus(); inp.select();
+      function finish(ok){
+        if(done) return; done=true;
+        if(ok){
+          var v=inp.value.trim(); cur.m=v; $('qm-matter').value=v;
+          var list=loadRec(), i=-1;
+          if(cur.at!=null) for(var k=0;k<list.length;k++) if(list[k].at===cur.at){i=k;break;}
+          if(i>=0) list[i].m=v; else {cur.at=Date.now(); list.unshift({t:cur.t,m:v,j:cur.j,s:cur.s,at:cur.at});}
+          saveRec(list);
+          if($('qm-rec').classList.contains('show')){$('qm-rec').classList.remove('show');showRec();}
+        }
+        td.innerHTML=mtHtml(cur.m);
+      }
+      inp.addEventListener('keydown',function(ev){if(ev.key==='Enter'){ev.preventDefault();finish(true);}else if(ev.key==='Escape'){ev.preventDefault();finish(false);}});
+      inp.addEventListener('blur',function(){finish(true);});
     });
     var nav=document.querySelector('[data-go="qm"]');
     if(nav) nav.addEventListener('click',function(){ if(!$('qm-out').classList.contains('show')) $('qm-time').value=nowVal(); });
