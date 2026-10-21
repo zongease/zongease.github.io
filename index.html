@@ -3661,20 +3661,20 @@ var QM = (function(){
     if(dayG===monthG&&(yong===dayG||yong===monthG)&&!relation) triggers.push("日月同干");
     var fuyin=isFuyin(ch), fanyin=isFanyin(ch);
     var pattern=fuyin?"大伏吟":(fanyin?"反吟":"普通");
-    if(fanyin&&!fuyin) trace.push("格局：反吟（反复不定）。课上转宫触发只列伏吟，反吟不自动转【L10/总笔记#33】");
-    if(fuyin) trace.push("格局：大伏吟（静止）→ 要转宫【L10】");
+    if(fanyin&&!fuyin) trace.push("格局：反吟（反复不定）。转宫触发只列伏吟，反吟不自动转");
+    if(fuyin) trace.push("格局：大伏吟（静止）→ 要转宫");
     var should=false, reason=null;
     if(forceZhuan||samePalaceIndex>=2){should=true; reason=samePalaceIndex>=2?("同宫第"+samePalaceIndex+"人"):"强制转宫";}
     else if(triggers.indexOf("伏吟")>=0){should=true; reason="伏吟";}
-    else if(triggers.indexOf("日月同干")>=0){should=true; reason="日干月干同一干（两人同宫）【L9/L10】";}
+    else if(triggers.indexOf("日月同干")>=0){should=true; reason="日干月干同一干（两人同宫）";}
     else if(triggers.indexOf("空亡")>=0){
-      if(autoZhuan){should=true; reason="用神宫空亡（可读不准时转；若象应「还没发生」可关 auto_zhuan）【总笔记#4】";}
-      else trace.push("用神宫空亡，但 auto_zhuan=False，保留原宫（两宫信息不迁）");
+      if(autoZhuan){should=true; reason="用神宫空亡（可读不准时转；若象应「还没发生」可关「空亡时建议转」）";}
+      else trace.push("用神宫空亡，但「空亡时建议转」已关闭，保留原宫（两宫信息不迁）");
     }
     var path=[p0], directionPresent=present;
     if(samePalaceIndex>=2){
       if(samePalaceIndex%2===0) directionPresent=!present;
-      trace.push("同宫第"+samePalaceIndex+"人：方向与上一次相反 → "+(directionPresent?"先天转后天":"后天转先天")+"【L10】");
+      trace.push("同宫第"+samePalaceIndex+"人：方向与上一次相反 → "+(directionPresent?"先天转后天":"后天转先天"));
     }
     if(should){
       var p1=zhuanOnce(p0,directionPresent); path.push(p1);
@@ -3684,11 +3684,11 @@ var QM = (function(){
       var hops=1, cur=p1;
       while(hops<maxZhuan&&ch.kongP[cur]){
         var nxt=zhuanOnce(cur,directionPresent); path.push(nxt); hops++;
-        trace.push("转后"+PALACE[cur]+"仍空亡 → 沿用同一方向再转（第"+hops+"次）："+PALACE[cur]+"→"+PALACE[nxt]+"【总笔记#1：连续空亡不交替】");
+        trace.push("转后"+PALACE[cur]+"仍空亡 → 沿用同一方向再转（第"+hops+"次）："+PALACE[cur]+"→"+PALACE[nxt]+"（连续空亡不交替）");
         cur=nxt;
       }
       if(ch.kongP[cur]) trace.push("已达最多转宫次数 "+maxZhuan+"，停止；"+PALACE[cur]+"仍空亡");
-      if(path.length>=2) trace.push("信息权重：转去的宫约80%，原宫约20%，两宫一起看【L8/L32】");
+      if(path.length>=2) trace.push("信息权重：转去的宫约80%，原宫约20%，两宫一起看");
     } else trace.push("不转宫，直接读用神宫");
     var final=path[path.length-1], snaps=path.map(function(p){return palaceSnapshot(ch,p);});
     return {ok:true,用神干:yong,原点干:origin,格局:pattern,触发:triggers,是否转宫:should,转宫原因:reason,
