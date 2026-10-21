@@ -1074,6 +1074,37 @@ body {
 #view-qm table.qm-hd td.l{color:#b8860b;font-weight:600;white-space:nowrap;width:44px}
 #view-qm table.qm-hd td.v{text-align:left;white-space:normal}
 #view-qm .qm-pen{border:none;background:none;color:#12c2b5;font-size:1rem;cursor:pointer;padding:0 4px;margin-left:4px;line-height:1}
+#view-qm .qm-dp{margin:14px 4px 0;padding:12px 10px;border:1px solid #d5e8e6;border-radius:10px;background:#f7fbfb}
+#view-qm .qm-dp-title{font-weight:700;color:#0e9a90;margin-bottom:8px;font-size:1rem}
+#view-qm .qm-dp-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:6px 0;font-size:.88rem}
+#view-qm .qm-dp-lab{width:40px;color:#666;flex:none}
+#view-qm .qm-dp-lab2{color:#666;margin-left:6px}
+#view-qm .qm-dp-row select,#view-qm .qm-dp-n{border:1px solid #cfd8d8;border-radius:6px;padding:4px 6px;font-size:.88rem;background:#fff}
+#view-qm .qm-dp-n{width:48px}
+#view-qm .qm-dp-row button{background:#12c2b5;color:#fff;border:none;border-radius:16px;padding:7px 16px;font-weight:600;cursor:pointer}
+#view-qm .qm-dp-row button.ghost,#view-qm .qm-dp-ops button.ghost{background:#fff;color:#12c2b5;border:1px solid #12c2b5}
+#view-qm .qm-dp-body{margin-top:8px;font-size:.86rem;line-height:1.55}
+#view-qm .qm-dp-empty{color:#999;text-align:center;padding:10px}
+#view-qm .qm-dp-path{margin:4px 0 8px}
+#view-qm .qm-dp-trace{background:#eef7f6;border-radius:8px;padding:8px 10px;color:#333;margin-bottom:8px;white-space:pre-wrap}
+#view-qm .qm-dp-sec{margin:8px 0;padding:8px;border:1px solid #e3eceb;border-radius:8px;background:#fff}
+#view-qm .qm-dp-tag{font-weight:700;margin-bottom:4px}
+#view-qm .qm-snap{margin:4px 0}
+#view-qm .qm-harm{color:#888;font-size:.8rem}
+#view-qm .qm-dp-ops{margin:10px 0;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+#view-qm .qm-dp-ops button{background:#12c2b5;color:#fff;border:none;border-radius:14px;padding:5px 12px;font-size:.82rem;cursor:pointer}
+#view-qm .qm-dp-note{color:#555;margin-bottom:4px}
+#view-qm .qm-dp-legend{margin-top:8px;font-size:.75rem;color:#777;text-align:center}
+#view-qm .hl-yong-t{color:#1e6fd9} #view-qm .hl-final-t{color:#1aa05a} #view-qm .hl-before-t{color:#8e44ad}
+#view-qm .hl-after-t{color:#f28c28} #view-qm .hl-cause-t{color:#e53935}
+#view-qm .qm-cell.hl-yong{outline:2px solid #1e6fd9;outline-offset:-2px;z-index:1}
+#view-qm .qm-cell.hl-final{outline:2px solid #1aa05a;outline-offset:-2px;z-index:1}
+#view-qm .qm-cell.hl-before{outline:2px solid #8e44ad;outline-offset:-2px;z-index:1}
+#view-qm .qm-cell.hl-after{outline:2px solid #f28c28;outline-offset:-2px;z-index:1}
+#view-qm .qm-cell.hl-cause{outline:2px solid #e53935;outline-offset:-2px;z-index:1}
+#view-qm .qm-cell.hl-focus{box-shadow:inset 0 0 0 2px rgba(18,194,181,.55)}
+#view-qm .qm-cell{cursor:pointer}
+
 #view-qm .qm-mtin{width:100%;border:none;border-bottom:1px solid #12c2b5;font-size:.9rem;padding:2px 0;font-family:inherit;outline:none;background:transparent}
 #view-qm table.qm-hd td.g{color:#b8860b}
 #view-qm table.qm-hd .pz{font-weight:700;font-size:1rem;line-height:1.35}
@@ -3508,6 +3539,322 @@ var QM = (function(){
   return {paipan:paipan,build:build,harm:harm,PALACE:PALACE,RING:RING,GOD_FULL:GOD_FULL,POHAI:POHAI,ZHI:ZHI,STAR0:STAR0};
 })();
 
+/* 断盘辅助：忠实移植 ref.py duanpan / liuqin_stem（SPEC §10） */
+(function(QM){
+  var GAN="甲乙丙丁戊己庚辛壬癸";
+  var PALACE=QM.PALACE, RING=QM.RING, GOD_FULL=QM.GOD_FULL, POHAI=QM.POHAI;
+  var XIAN_TO_HOU={1:2,2:4,3:9,4:7,6:8,7:1,8:3,9:6};
+  var HOU_TO_XIAN={1:7,2:1,3:8,4:2,6:9,7:4,8:6,9:3};
+  var DUI={1:9,9:1,2:8,8:2,3:7,7:3,4:6,6:4};
+  var STEM_YY={}; for(var i=0;i<10;i++) STEM_YY[GAN.charAt(i)]=(i%2===0)?"阳":"阴";
+  var STEM_WX={"甲":"木","乙":"木","丙":"火","丁":"火","戊":"土","己":"土","庚":"金","辛":"金","壬":"水","癸":"水"};
+  var WX_SHENG={"木":"火","火":"土","土":"金","金":"水","水":"木"};
+  var WX_KE={"木":"土","土":"水","水":"火","火":"金","金":"木"};
+  var WX_SHENGW={}; Object.keys(WX_SHENG).forEach(function(k){WX_SHENGW[WX_SHENG[k]]=k;});
+  var WX_KEW={}; Object.keys(WX_KE).forEach(function(k){WX_KEW[WX_KE[k]]=k;});
+  var ALIAS={"男朋友":"兄弟","男性朋友":"兄弟","女朋友":"姐妹","女性朋友":"姐妹","哥哥":"兄弟","弟弟":"兄弟","姐姐":"姐妹","妹妹":"姐妹","儿子":"男孩","女儿":"女孩","领导男":"男领导","领导女":"女领导"};
+
+  function isFuyin(ch){return RING.every(function(p){return ch.tian[p].join("")===ch.di[p].join("");});}
+  function isFanyin(ch){
+    for(var i=0;i<RING.length;i++){var p=RING[i],d=DUI[p];
+      if(ch.tian[p].join("")!==ch.di[d].join("")||ch.di[p].join("")!==ch.tian[d].join("")) return false;}
+    return true;
+  }
+  function findTianPalace(ch,stem){
+    if(stem==="甲"){for(var i=0;i<RING.length;i++) if(ch.god[RING[i]]==="符") return RING[i]; return null;}
+    for(var i=0;i<RING.length;i++) if(ch.tian[RING[i]].indexOf(stem)>=0) return RING[i];
+    return null;
+  }
+  function findDiPalace(ch,stem){
+    if(stem==="甲") return null;
+    for(var i=0;i<RING.length;i++) if(ch.di[RING[i]].indexOf(stem)>=0) return RING[i];
+    return null;
+  }
+  function findTianPalaces(ch,stems){
+    var out=[],seen={}; stems.forEach(function(s){var p=findTianPalace(ch,s); if(p!=null&&!seen[p]){out.push(p);seen[p]=1;}}); return out;
+  }
+  function findDiPalaces(ch,stems){
+    var out=[],seen={}; stems.forEach(function(s){var p=findDiPalace(ch,s); if(p!=null&&!seen[p]){out.push(p);seen[p]=1;}}); return out;
+  }
+  function palaceSnapshot(ch,p){
+    var harms=[];
+    [["天","tian"],["地","di"]].forEach(function(L){ch[L[1]][p].forEach(function(s){var h=QM.harm(s,p); if(h) harms.push(L[0]+s+":"+h);});});
+    if(POHAI[ch.door[p]].indexOf(p)>=0) harms.push(ch.door[p]+"门:门迫");
+    return {宫:PALACE[p],宫数:p,八神:GOD_FULL[ch.god[p]],天盘:ch.tian[p].slice(),九星:"天"+ch.star[p],
+      地盘:ch.di[p].slice(),八门:ch.door[p]+"门",引干:ch.yin[p].slice(),空亡:!!ch.kongP[p],马星:p===ch.maP,四害:harms};
+  }
+  function zhuanOnce(p,present){return present?XIAN_TO_HOU[p]:HOU_TO_XIAN[p];}
+  function liuqinStem(origin,gender,relation){
+    relation=ALIAS[relation]||relation;
+    var wx=STEM_WX[origin], yy=STEM_YY[origin];
+    function pick(twx,wantYang){
+      for(var i=0;i<10;i++){var g=GAN.charAt(i); if(STEM_WX[g]===twx&&(STEM_YY[g]==="阳")===wantYang) return g;}
+    }
+    if(relation==="母亲"){var same=gender==="女"; return pick(WX_SHENGW[wx], same?(yy==="阳"):(yy!=="阳"));}
+    if(relation==="父亲"){var same=gender==="男"; return pick(WX_KE[wx], same?(yy==="阳"):(yy!=="阳"));}
+    if(relation==="男孩") return pick(WX_SHENG[wx],true);
+    if(relation==="女孩") return pick(WX_SHENG[wx],false);
+    if(relation==="兄弟") return pick(wx,true);
+    if(relation==="姐妹") return pick(wx,false);
+    if(relation==="男领导") return pick(WX_KEW[wx],true);
+    if(relation==="女领导") return pick(WX_KEW[wx],false);
+    throw new Error("未知关系: "+relation);
+  }
+  function resolveYongshen(ch,mode,stem,gender,relation){
+    var dayG=ch.c.pillars[2].charAt(0), monthG=ch.c.pillars[1].charAt(0), hourG=ch.c.pillars[3].charAt(0);
+    if(relation){
+      if(gender!=="男"&&gender!=="女") throw new Error("一卦清纯需要 gender=男/女");
+      var origin=stem||(mode==="面测"?dayG:monthG);
+      return [liuqinStem(origin,gender,relation), origin];
+    }
+    if(stem) return [stem,null];
+    if(mode==="面测") return [dayG,null];
+    if(mode==="电测") return [monthG,null];
+    if(mode==="时干") return [hourG,null];
+    throw new Error("未知 mode: "+mode);
+  }
+  function fanFrom(ch,p){
+    var tianStems=ch.tian[p].slice(), diStems=ch.di[p].slice();
+    var beforePs=findDiPalaces(ch,tianStems), afterPs=findTianPalaces(ch,diStems);
+    var beforeNote=[], afterNote=[];
+    tianStems.forEach(function(s){var bp=findDiPalace(ch,s);
+      if(bp==null) beforeNote.push("天盘"+s+"：地盘无此干"+(s==="甲"?"（甲遁仪下）":""));
+      else if(bp===p&&ch.tian[p].join("")===ch.di[p].join("")) beforeNote.push("天盘"+s+"→地盘同宫"+PALACE[bp]+"（伏吟，之前＝现在）");
+      else beforeNote.push("天盘"+s+"→作地盘于"+PALACE[bp]);
+    });
+    diStems.forEach(function(s){var ap=findTianPalace(ch,s);
+      if(ap==null) afterNote.push("地盘"+s+"：天盘无此干");
+      else if(ap===p&&ch.tian[p].join("")===ch.di[p].join("")) afterNote.push("地盘"+s+"→天盘同宫"+PALACE[ap]+"（伏吟，之后＝现在）");
+      else afterNote.push("地盘"+s+"→作天盘于"+PALACE[ap]);
+    });
+    return {
+      之前:{目标宫:beforePs.map(function(x){return PALACE[x];}),快照:beforePs.map(function(x){return palaceSnapshot(ch,x);}),说明:beforeNote,标签:"之前＝来龙"},
+      之后:{目标宫:afterPs.map(function(x){return PALACE[x];}),快照:afterPs.map(function(x){return palaceSnapshot(ch,x);}),说明:afterNote,标签:"之后＝去脉"}
+    };
+  }
+  function yinFrom(ch,p){
+    var yinStems=ch.yin[p].slice(), tgts=findTianPalaces(ch,yinStems), notes=[];
+    yinStems.forEach(function(s){var tp=findTianPalace(ch,s);
+      notes.push(tp==null?("引干"+s+"：天盘未找到"):("引干"+s+"→天盘在"+PALACE[tp]));
+    });
+    return {引干:yinStems,目标宫:tgts.map(function(x){return PALACE[x];}),快照:tgts.map(function(x){return palaceSnapshot(ch,x);}),说明:notes,标签:"原因"};
+  }
+  function duanpan(ch,opts){
+    opts=opts||{};
+    var mode=opts.mode||"面测", stem=opts.stem||null, gender=opts.gender||null, relation=opts.relation||null;
+    var autoZhuan=opts.autoZhuan!==false, forceZhuan=!!opts.forceZhuan, maxZhuan=opts.maxZhuan||2;
+    var present=opts.present, samePalaceIndex=opts.samePalaceIndex||1;
+    if(present==null) present=(mode==="面测");
+    var ry=resolveYongshen(ch,mode,stem,gender,relation), yong=ry[0], origin=ry[1];
+    var dayG=ch.c.pillars[2].charAt(0), monthG=ch.c.pillars[1].charAt(0);
+    var p0=findTianPalace(ch,yong), trace=[];
+    if(relation) trace.push("一卦清纯：原点"+origin+"（"+(mode==="面测"?"面测日干":mode==="电测"?"电测月干":"指定")+"）+求测人"+gender+" → "+relation+"＝"+yong);
+    else if(stem) trace.push("指定用神干 "+yong);
+    else {var tag={面测:"日干",电测:"月干",时干:"时干"}[mode]; trace.push(mode+"→"+tag+yong);}
+    if(p0==null) return {ok:false,trace:trace.concat(["天盘未找到 "+yong]),用神干:yong};
+    var label=(yong==="甲"?"甲(值符)":yong)+"在"+PALACE[p0];
+    if(ch.kongP[p0]) label+="（空亡）";
+    trace.push("取用神：找天盘干 → "+label);
+    var triggers=[];
+    if(ch.kongP[p0]) triggers.push("空亡");
+    if(isFuyin(ch)) triggers.push("伏吟");
+    if(dayG===monthG&&(yong===dayG||yong===monthG)&&!relation) triggers.push("日月同干");
+    var fuyin=isFuyin(ch), fanyin=isFanyin(ch);
+    var pattern=fuyin?"大伏吟":(fanyin?"反吟":"普通");
+    if(fanyin&&!fuyin) trace.push("格局：反吟（反复不定）。课上转宫触发只列伏吟，反吟不自动转【L10/总笔记#33】");
+    if(fuyin) trace.push("格局：大伏吟（静止）→ 要转宫【L10】");
+    var should=false, reason=null;
+    if(forceZhuan||samePalaceIndex>=2){should=true; reason=samePalaceIndex>=2?("同宫第"+samePalaceIndex+"人"):"强制转宫";}
+    else if(triggers.indexOf("伏吟")>=0){should=true; reason="伏吟";}
+    else if(triggers.indexOf("日月同干")>=0){should=true; reason="日干月干同一干（两人同宫）【L9/L10】";}
+    else if(triggers.indexOf("空亡")>=0){
+      if(autoZhuan){should=true; reason="用神宫空亡（可读不准时转；若象应「还没发生」可关 auto_zhuan）【总笔记#4】";}
+      else trace.push("用神宫空亡，但 auto_zhuan=False，保留原宫（两宫信息不迁）");
+    }
+    var path=[p0], directionPresent=present;
+    if(samePalaceIndex>=2){
+      if(samePalaceIndex%2===0) directionPresent=!present;
+      trace.push("同宫第"+samePalaceIndex+"人：方向与上一次相反 → "+(directionPresent?"先天转后天":"后天转先天")+"【L10】");
+    }
+    if(should){
+      var p1=zhuanOnce(p0,directionPresent); path.push(p1);
+      var dirName=directionPresent?"先天转后天（深挖）":"后天转先天（漂移）";
+      var who=directionPresent?"人在面前":"人不在面前";
+      trace.push("转宫触发："+reason+" → "+who+dirName+"："+PALACE[p0]+"→"+PALACE[p1]);
+      var hops=1, cur=p1;
+      while(hops<maxZhuan&&ch.kongP[cur]){
+        var nxt=zhuanOnce(cur,directionPresent); path.push(nxt); hops++;
+        trace.push("转后"+PALACE[cur]+"仍空亡 → 沿用同一方向再转（第"+hops+"次）："+PALACE[cur]+"→"+PALACE[nxt]+"【总笔记#1：连续空亡不交替】");
+        cur=nxt;
+      }
+      if(ch.kongP[cur]) trace.push("已达最多转宫次数 "+maxZhuan+"，停止；"+PALACE[cur]+"仍空亡");
+      if(path.length>=2) trace.push("信息权重：转去的宫约80%，原宫约20%，两宫一起看【L8/L32】");
+    } else trace.push("不转宫，直接读用神宫");
+    var final=path[path.length-1], snaps=path.map(function(p){return palaceSnapshot(ch,p);});
+    return {ok:true,用神干:yong,原点干:origin,格局:pattern,触发:triggers,是否转宫:should,转宫原因:reason,
+      路径:path.map(function(p){return PALACE[p];}),用神宫:snaps[0],终宫:snaps[snaps.length-1],路径快照:snaps,
+      翻宫:fanFrom(ch,final),引干:yinFrom(ch,final),翻宫_原宫:fanFrom(ch,p0),引干_原宫:yinFrom(ch,p0),
+      trace:trace,present:present,direction:directionPresent?"先天转后天":"后天转先天",
+      _pathNums:path,_finalNum:final,_p0Num:p0};
+  }
+  QM.duanpan=duanpan; QM.liuqinStem=liuqinStem; QM.findTianPalace=findTianPalace; QM.findDiPalace=findDiPalace;
+  QM.isFuyin=isFuyin; QM.isFanyin=isFanyin; QM.palaceSnapshot=palaceSnapshot;
+  QM.XIAN_TO_HOU=XIAN_TO_HOU; QM.HOU_TO_XIAN=HOU_TO_XIAN; QM.fanFrom=fanFrom; QM.yinFrom=yinFrom;
+})(QM);
+
+/* 断盘辅助 UI —— 挂在 #view-qm，依赖 QM.duanpan */
+(function(){
+  var $=function(id){return document.getElementById(id);};
+  var STATE={ch:null, focus:null, result:null, fan:null, yin:null};
+  var HL={yong:'hl-yong', final:'hl-final', before:'hl-before', after:'hl-after', cause:'hl-cause', focus:'hl-focus'};
+  function nameToNum(n){for(var k in QM.PALACE) if(QM.PALACE[k]===n) return Number(k); return null;}
+  function snapHtml(s){
+    if(!s) return '';
+    var kong=s.空亡?' ○空亡':'', ma=s.马星?' 马':'';
+    var harms=s.四害.length?s.四害.join('、'):'无';
+    return '<div class="qm-snap"><b>'+s.宫+'</b>：'+s.八神+' / 天'+s.天盘.join('')+' / '+s.九星+
+      ' / 地'+s.地盘.join('')+' / '+s.八门+' / 引'+s.引干.join('')+kong+ma+
+      '<br><span class="qm-harm">四害：'+harms+'</span></div>';
+  }
+  function clearHL(){
+    document.querySelectorAll('#qm-out .qm-cell').forEach(function(c){
+      c.classList.remove('hl-yong','hl-final','hl-before','hl-after','hl-cause','hl-focus');
+    });
+  }
+  function mark(names, cls){
+    (names||[]).forEach(function(n){
+      var el=document.querySelector('#qm-out .qm-cell[data-p="'+n+'"]');
+      if(el) el.classList.add(cls);
+    });
+  }
+  function applyHL(){
+    clearHL();
+    var r=STATE.result; if(!r||!r.ok) return;
+    mark([r.用神宫.宫], HL.yong);
+    if(r.是否转宫) mark([r.终宫.宫], HL.final);
+    if(STATE.fan){ mark(STATE.fan.之前.目标宫, HL.before); mark(STATE.fan.之后.目标宫, HL.after); }
+    if(STATE.yin) mark(STATE.yin.目标宫, HL.cause);
+    if(STATE.focus) mark([QM.PALACE[STATE.focus]], HL.focus);
+  }
+  function optsFromUI(){
+    var mode=document.querySelector('input[name="qm-dp-mode"]:checked').value;
+    var kind=$('qm-dp-kind').value;
+    var o={mode:mode, autoZhuan:$('qm-dp-zhuan').checked, samePalaceIndex:Number($('qm-dp-n').value)||1, present:(mode==='面测')};
+    if(!STATE.ch) return o;
+    if(kind==='默认'){ /* mode decides stem */ }
+    else if(kind==='日') o.stem=STATE.ch.c.pillars[2].charAt(0);
+    else if(kind==='月') o.stem=STATE.ch.c.pillars[1].charAt(0);
+    else if(kind==='时') o.stem=STATE.ch.c.pillars[3].charAt(0);
+    else if(kind==='干') o.stem=$('qm-dp-stem').value;
+    else if(kind==='亲'){ o.gender=$('qm-dp-gender').value; o.relation=$('qm-dp-rel').value; }
+    return o;
+  }
+  function syncKindUI(){
+    var k=$('qm-dp-kind').value;
+    $('qm-dp-stem-row').style.display=k==='干'?'flex':'none';
+    $('qm-dp-lq-row').style.display=k==='亲'?'flex':'none';
+  }
+  function runDuan(){
+    if(!STATE.ch) return;
+    var o=optsFromUI();
+    var r; try{r=QM.duanpan(STATE.ch,o);}catch(e){$('qm-dp-trace').textContent='失败：'+e.message;return;}
+    STATE.result=r; STATE.focus=r.ok?r._finalNum:null; STATE.fan=null; STATE.yin=null;
+    renderPanel(); applyHL();
+  }
+  function renderPanel(){
+    var box=$('qm-dp-body'); if(!box) return;
+    var r=STATE.result;
+    if(!r){box.innerHTML='<div class="qm-dp-empty">选择用神后点「分析」</div>';return;}
+    if(!r.ok){box.innerHTML='<div class="qm-dp-empty">'+(r.trace||[]).join('<br>')+'</div>';return;}
+    var path=r.路径.join(' → ');
+    var html='<div class="qm-dp-path">格局：'+r.格局+'；路径：<b>'+path+'</b></div>';
+    html+='<div class="qm-dp-trace">'+(r.trace||[]).map(function(t){return '· '+t;}).join('<br>')+'</div>';
+    html+='<div class="qm-dp-sec"><div class="qm-dp-tag hl-yong-t">用神＝状态'+(r.是否转宫?'（原宫≈20%）':'')+'</div>'+snapHtml(r.用神宫)+'</div>';
+    if(r.是否转宫) html+='<div class="qm-dp-sec"><div class="qm-dp-tag hl-final-t">转后≈80%</div>'+snapHtml(r.终宫)+'</div>';
+    var focName=STATE.focus?QM.PALACE[STATE.focus]:r.终宫.宫;
+    html+='<div class="qm-dp-ops">关注宫：<b id="qm-dp-foc">'+focName+'</b> '+
+      '<button type="button" data-act="before">之前</button> '+
+      '<button type="button" data-act="after">之后</button> '+
+      '<button type="button" data-act="yin">引干</button> '+
+      '<button type="button" data-act="reset" class="ghost">回到终宫</button></div>';
+    html+='<div id="qm-dp-extra"></div>';
+    html+='<div class="qm-dp-legend">描边：<span class="hl-yong-t">用神原宫</span> <span class="hl-final-t">转后</span> <span class="hl-before-t">之前</span> <span class="hl-after-t">之后</span> <span class="hl-cause-t">原因</span> · 点宫格改关注</div>';
+    box.innerHTML=html;
+    renderExtra();
+  }
+  function renderExtra(){
+    var el=$('qm-dp-extra'); if(!el) return;
+    var html='';
+    if(STATE.fan){
+      html+='<div class="qm-dp-sec"><div class="qm-dp-tag hl-before-t">之前＝来龙</div>'+
+        '<div class="qm-dp-note">'+STATE.fan.之前.说明.join('；')+' → '+(STATE.fan.之前.目标宫.join(',')||'无')+'</div>'+
+        STATE.fan.之前.快照.map(snapHtml).join('')+'</div>';
+      html+='<div class="qm-dp-sec"><div class="qm-dp-tag hl-after-t">之后＝去脉</div>'+
+        '<div class="qm-dp-note">'+STATE.fan.之后.说明.join('；')+' → '+(STATE.fan.之后.目标宫.join(',')||'无')+'</div>'+
+        STATE.fan.之后.快照.map(snapHtml).join('')+'</div>';
+    }
+    if(STATE.yin){
+      html+='<div class="qm-dp-sec"><div class="qm-dp-tag hl-cause-t">原因＝引干</div>'+
+        '<div class="qm-dp-note">'+STATE.yin.说明.join('；')+' → '+(STATE.yin.目标宫.join(',')||'无')+'</div>'+
+        STATE.yin.快照.map(snapHtml).join('')+'</div>';
+    }
+    el.innerHTML=html;
+  }
+  function focusPalace(p){
+    if(!STATE.ch||!p||p===5) return;
+    STATE.focus=p; STATE.fan=null; STATE.yin=null;
+    var foc=$('qm-dp-foc'); if(foc) foc.textContent=QM.PALACE[p];
+    renderExtra(); applyHL();
+  }
+  function panelHTML(){
+    var stems='甲乙丙丁戊己庚辛壬癸'.split('').map(function(s){return '<option value="'+s+'">'+s+'</option>';}).join('');
+    var rels=['母亲','父亲','男孩','女孩','兄弟','姐妹','男领导','女领导'].map(function(r){return '<option value="'+r+'">'+r+'</option>';}).join('');
+    return '<div class="qm-dp" id="qm-dp">'+
+      '<div class="qm-dp-title">断盘辅助</div>'+
+      '<div class="qm-dp-row"><span class="qm-dp-lab">模式</span><label><input type="radio" name="qm-dp-mode" value="面测" checked>面测</label>'+
+      '<label><input type="radio" name="qm-dp-mode" value="电测">电测</label></div>'+
+      '<div class="qm-dp-row"><span class="qm-dp-lab">用神</span><select id="qm-dp-kind">'+
+      '<option value="默认">默认（面测日/电测月）</option><option value="日">日干</option><option value="月">月干</option><option value="时">时干</option>'+
+      '<option value="干">任意干</option><option value="亲">一卦清纯六亲</option></select></div>'+
+      '<div class="qm-dp-row" id="qm-dp-stem-row" style="display:none"><span class="qm-dp-lab">天干</span><select id="qm-dp-stem">'+stems+'</select></div>'+
+      '<div class="qm-dp-row" id="qm-dp-lq-row" style="display:none"><span class="qm-dp-lab">清纯</span>'+
+      '<select id="qm-dp-gender"><option value="女">女求测</option><option value="男">男求测</option></select> '+
+      '<select id="qm-dp-rel">'+rels+'</select></div>'+
+      '<div class="qm-dp-row"><span class="qm-dp-lab">转宫</span><label><input type="checkbox" id="qm-dp-zhuan" checked>空亡时建议转</label>'+
+      '<span class="qm-dp-lab2">同宫第</span><input type="number" id="qm-dp-n" min="1" max="9" value="1" class="qm-dp-n">人</div>'+
+      '<div class="qm-dp-row"><button type="button" id="qm-dp-go">分析</button></div>'+
+      '<div id="qm-dp-body" class="qm-dp-body"></div></div>';
+  }
+  function bindPanel(){
+    var dp=$('qm-dp'); if(!dp||dp.dataset.bound) return; dp.dataset.bound='1';
+    $('qm-dp-kind').addEventListener('change',syncKindUI);
+    $('qm-dp-go').addEventListener('click',runDuan);
+    dp.querySelectorAll('input[name="qm-dp-mode"]').forEach(function(r){r.addEventListener('change',function(){});});
+    $('qm-dp-body').addEventListener('click',function(e){
+      var btn=e.target.closest('[data-act]'); if(!btn||!STATE.ch||!STATE.focus) return;
+      var act=btn.getAttribute('data-act');
+      if(act==='reset'){ STATE.focus=STATE.result&&STATE.result._finalNum; STATE.fan=null; STATE.yin=null;
+        var foc=$('qm-dp-foc'); if(foc&&STATE.focus) foc.textContent=QM.PALACE[STATE.focus]; renderExtra(); applyHL(); return; }
+      if(act==='before'||act==='after'){ STATE.fan=QM.fanFrom(STATE.ch,STATE.focus); STATE.yin=null; renderExtra(); applyHL(); }
+      if(act==='yin'){ STATE.yin=QM.yinFrom(STATE.ch,STATE.focus); renderExtra(); applyHL(); }
+    });
+  }
+  // Hook into existing UI: expose attach after render
+  var root=typeof window!=='undefined'?window:global; root.__qmAttachDuanpan=function(ch){
+    STATE.ch=ch; STATE.result=null; STATE.focus=null; STATE.fan=null; STATE.yin=null;
+    var out=$('qm-out'); if(!out) return;
+    if(!$('qm-dp')){ out.insertAdjacentHTML('beforeend', panelHTML()); bindPanel(); syncKindUI(); }
+    else { $('qm-dp-body').innerHTML='<div class="qm-dp-empty">选择用神后点「分析」</div>'; clearHL(); }
+  };
+  // palace click → focus (delegate on qm-out)
+  if(typeof document!=='undefined') document.addEventListener('click',function(e){
+    var cell=e.target.closest('#qm-out .qm-cell[data-p]'); if(!cell||!STATE.ch) return;
+    if(e.target.closest('.qm-pen')) return;
+    focusPalace(nameToNum(cell.getAttribute('data-p')));
+  });
+})();
+
+
 (function(){
   var $=function(id){return document.getElementById(id);};
   var RKEY='qm-records-v1';
@@ -3552,6 +3899,7 @@ var QM = (function(){
     g+='<div class="qm-legend">颜色说明：<b class="h-mu">入墓</b>、<b class="h-xing">击刑</b>、<b class="h-po">门迫</b>、<b class="h-xm">刑+墓</b></div>';
     g+='<div class="qm-note">北京时间；23 点后定局与日柱按次日。</div>';
     $('qm-out').innerHTML=h+g; $('qm-out').classList.add('show');
+    if(window.__qmAttachDuanpan) window.__qmAttachDuanpan(ch);
   }
   function run(t,matter,manualVal,save,recAt){
     $('qm-msg').textContent='';
@@ -3568,7 +3916,7 @@ var QM = (function(){
       list.unshift({t:t,m:matter||'',j:manualVal||'',s:ch.yy+'遁'+ch.ju+'局',at:recAt});
       saveRec(list);
     }
-    cur={t:t,m:matter||'',j:manualVal||'',s:ch.yy+'遁'+ch.ju+'局',at:recAt||null};
+    cur={t:t,m:matter||'',j:manualVal||'',s:ch.yy+'遁'+ch.ju+'局',at:recAt||null,ch:ch};
     setTimeout(function(){$('qm-out').scrollIntoView({behavior:'smooth',block:'start'});},30);
   }
   function showRec(){
